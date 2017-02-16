@@ -1,0 +1,23 @@
+.full-SVG {
+    position: absolute;
+    width: 98%;
+    height: 98%;
+}
+
+#main {
+    position: absolute;
+    top:0;
+    left: 0;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: lightgrey;
+}
+
+body {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
