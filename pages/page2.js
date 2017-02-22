@@ -1,5 +1,5 @@
-import BSTree from './classes/BSTree';
-import TreeView from './views/TreeView';
+import BSTree from '../classes/BSTree';
+import TreeView from '../views/TreeView';
 
 const tree = new BSTree();
 for (let i = 0; i < 10; i++) {
@@ -10,6 +10,6 @@ console.log(tree);
 let view = new TreeView(document.getElementById('main'), tree);
 
 setTimeout(() => {
-    tree.root.rotateLeft();
+    tree.root.rotateRight();
     view.update();
 }, 3000)

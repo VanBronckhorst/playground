@@ -12,4 +12,10 @@ export default class SVGView{
     get SVG() {
         return this[SVG];
     }
+
+    clear() {
+        while(this.SVG.hasChildNodes()) {
+            this.SVG.removeChild(this.SVG.lastChild);
+        }
+    }
 }

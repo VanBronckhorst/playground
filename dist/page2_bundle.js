@@ -73,31 +73,196 @@
 "use strict";
 
 
-var _BSTree = __webpack_require__(2);
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 
-var _BSTree2 = _interopRequireDefault(_BSTree);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _TreeView = __webpack_require__(7);
+var _Tree2 = __webpack_require__(4);
 
-var _TreeView2 = _interopRequireDefault(_TreeView);
+var _Tree3 = _interopRequireDefault(_Tree2);
+
+var _BSTNode = __webpack_require__(2);
+
+var _BSTNode2 = _interopRequireDefault(_BSTNode);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var tree = new _BSTree2.default();
-for (var i = 0; i < 10; i++) {
-    tree.insert(Math.round(Math.random() * 100));
-}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-console.log(tree);
-var view = new _TreeView2.default(document.getElementById('main'), tree);
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-setTimeout(function () {
-    tree.root.rotateLeft();
-    view.update();
-}, 3000);
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var BSTree = function (_Tree) {
+    _inherits(BSTree, _Tree);
+
+    function BSTree() {
+        _classCallCheck(this, BSTree);
+
+        return _possibleConstructorReturn(this, (BSTree.__proto__ || Object.getPrototypeOf(BSTree)).call(this, null));
+    }
+
+    _createClass(BSTree, [{
+        key: 'insert',
+        value: function insert(key) {
+            if (this.root === null) {
+                this.root = new _BSTNode2.default(key);
+                return;
+            }
+
+            return this.root.insert(key);
+        }
+    }]);
+
+    return BSTree;
+}(_Tree3.default);
+
+exports.default = BSTree;
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _SVGView2 = __webpack_require__(6);
+
+var _SVGView3 = _interopRequireDefault(_SVGView2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CIRCLE_RADIUS = 25;
+
+var TreeView = function (_SVGView) {
+    _inherits(TreeView, _SVGView);
+
+    function TreeView(domParent, tree) {
+        _classCallCheck(this, TreeView);
+
+        var _this = _possibleConstructorReturn(this, (TreeView.__proto__ || Object.getPrototypeOf(TreeView)).call(this, domParent));
+
+        _this.tree = tree;
+        _this.buildTree();
+        return _this;
+    }
+
+    _createClass(TreeView, [{
+        key: 'buildTree',
+        value: function buildTree() {
+            var tree = this.tree;
+            var SVG = this.SVG;
+
+            // sizes for the SVG
+            // build a grid where the tree can fit
+            var treeH = tree.height;
+
+            var rows = treeH + 1;
+            var cols = Math.pow(2, treeH);
+
+            var W = CIRCLE_RADIUS * 2.2 * cols;
+            var H = CIRCLE_RADIUS * 5 * rows;
+
+            SVG.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+            // SVG.setAttribute('preserveAspectRatio', 'xMidYMin');
+
+            var dX = W / cols;
+            var dY = H / rows;
+            this.R = Math.min(dY, dX) * 0.4;
+
+            this.drawNode(tree.root, W / 2, dY / 2, 0, -dY / 2);
+
+            SVG.style.display = 'none';
+            SVG.offsetHeight;
+            SVG.style.display = '';
+        }
+    }, {
+        key: 'drawLink',
+        value: function drawLink(x1, y1, x2, y2) {
+            var ns = 'http://www.w3.org/2000/svg';
+            var line = document.createElementNS(ns, 'line');
+            line.setAttribute('x1', x1);
+            line.setAttribute('x2', x2);
+            line.setAttribute('y1', y1);
+            line.setAttribute('y2', y2);
+            line.setAttribute('stroke', 'black');
+            line.setAttribute('stroke-width', '3');
+            this.SVG.appendChild(line);
+        }
+    }, {
+        key: 'createCircle',
+        value: function createCircle(node, x, y, r) {
+            var ns = 'http://www.w3.org/2000/svg';
+
+            var circle = document.createElementNS(ns, 'circle');
+            circle.setAttribute('cx', x);
+            circle.setAttribute('cy', y);
+            circle.setAttribute('r', r);
+            circle.setAttribute('fill', 'red');
+            circle.setAttribute('stroke', 'black');
+            circle.setAttribute('stroke-width', '1');
+
+            var text = document.createElementNS(ns, 'text');
+            text.setAttribute('x', x);
+            text.setAttribute('y', y);
+            text.setAttribute('text-anchor', 'middle');
+            text.setAttribute('dominant-baseline', 'middle');
+            text.innerHTML = node.key;
+
+            var group = document.createElementNS(ns, 'g');
+            group.appendChild(circle);
+            group.appendChild(text);
+
+            return group;
+        }
+    }, {
+        key: 'drawNode',
+        value: function drawNode(node, x, y, parX, parY) {
+            if (node.left !== null) {
+                var newX = x - Math.abs(x - parX) / 2;
+                var newY = y + (y - parY);
+                this.drawLink(x, y, newX, newY);
+                this.drawNode(node.left, newX, newY, x, y);
+            }
+            if (node.right !== null) {
+                var _newX = x + Math.abs(x - parX) / 2;
+                var _newY = y + (y - parY);
+                this.drawLink(x, y, _newX, _newY);
+                this.drawNode(node.right, _newX, _newY, x, y);
+            }
+
+            var circle = this.createCircle(node, x, y, CIRCLE_RADIUS);
+            this.SVG.appendChild(circle);
+        }
+    }, {
+        key: 'update',
+        value: function update() {
+            this.clear();
+            this.buildTree();
+        }
+    }]);
+
+    return TreeView;
+}(_SVGView3.default);
+
+exports.default = TreeView;
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -161,61 +326,6 @@ var BSTNode = function (_TreeNode) {
 }(_TreeNode3.default);
 
 exports.default = BSTNode;
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _Tree2 = __webpack_require__(4);
-
-var _Tree3 = _interopRequireDefault(_Tree2);
-
-var _BSTNode = __webpack_require__(1);
-
-var _BSTNode2 = _interopRequireDefault(_BSTNode);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var BSTree = function (_Tree) {
-    _inherits(BSTree, _Tree);
-
-    function BSTree() {
-        _classCallCheck(this, BSTree);
-
-        return _possibleConstructorReturn(this, (BSTree.__proto__ || Object.getPrototypeOf(BSTree)).call(this, null));
-    }
-
-    _createClass(BSTree, [{
-        key: 'insert',
-        value: function insert(key) {
-            if (this.root === null) {
-                this.root = new _BSTNode2.default(key);
-                return;
-            }
-
-            return this.root.insert(key);
-        }
-    }]);
-
-    return BSTree;
-}(_Tree3.default);
-
-exports.default = BSTree;
 
 /***/ }),
 /* 3 */
@@ -456,151 +566,35 @@ var SVGView = function () {
 exports.default = SVGView;
 
 /***/ }),
-/* 7 */
+/* 7 */,
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
+var _BSTree = __webpack_require__(0);
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _BSTree2 = _interopRequireDefault(_BSTree);
 
-var _SVGView2 = __webpack_require__(6);
+var _TreeView = __webpack_require__(1);
 
-var _SVGView3 = _interopRequireDefault(_SVGView2);
+var _TreeView2 = _interopRequireDefault(_TreeView);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var tree = new _BSTree2.default();
+for (var i = 0; i < 10; i++) {
+    tree.insert(Math.round(Math.random() * 100));
+}
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+console.log(tree);
+var view = new _TreeView2.default(document.getElementById('main'), tree);
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var CIRCLE_RADIUS = 25;
-
-var TreeView = function (_SVGView) {
-    _inherits(TreeView, _SVGView);
-
-    function TreeView(domParent, tree) {
-        _classCallCheck(this, TreeView);
-
-        var _this = _possibleConstructorReturn(this, (TreeView.__proto__ || Object.getPrototypeOf(TreeView)).call(this, domParent));
-
-        _this.tree = tree;
-        _this.buildTree();
-        return _this;
-    }
-
-    _createClass(TreeView, [{
-        key: 'buildTree',
-        value: function buildTree() {
-            var tree = this.tree;
-            var SVG = this.SVG;
-
-            // sizes for the SVG
-            // build a grid where the tree can fit
-            var treeH = tree.height;
-
-            var rows = treeH + 1;
-            var cols = Math.pow(2, treeH);
-
-            var W = CIRCLE_RADIUS * 2.2 * cols;
-            var H = CIRCLE_RADIUS * 5 * rows;
-
-            SVG.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
-            // SVG.setAttribute('preserveAspectRatio', 'xMidYMin');
-
-            var dX = W / cols;
-            var dY = H / rows;
-            this.R = Math.min(dY, dX) * 0.4;
-
-            this.drawNode(tree.root, W / 2, dY / 2, 0, -dY / 2);
-
-            SVG.style.display = 'none';
-            SVG.offsetHeight;
-            SVG.style.display = '';
-        }
-    }, {
-        key: 'drawLink',
-        value: function drawLink(x1, y1, x2, y2) {
-            var ns = 'http://www.w3.org/2000/svg';
-            var line = document.createElementNS(ns, 'line');
-            line.setAttribute('x1', x1);
-            line.setAttribute('x2', x2);
-            line.setAttribute('y1', y1);
-            line.setAttribute('y2', y2);
-            line.setAttribute('stroke', 'black');
-            line.setAttribute('stroke-width', '3');
-            this.SVG.appendChild(line);
-        }
-    }, {
-        key: 'createCircle',
-        value: function createCircle(node, x, y, r) {
-            var ns = 'http://www.w3.org/2000/svg';
-
-            var circle = document.createElementNS(ns, 'circle');
-            circle.setAttribute('cx', x);
-            circle.setAttribute('cy', y);
-            circle.setAttribute('r', r);
-            circle.setAttribute('fill', 'red');
-            circle.setAttribute('stroke', 'black');
-            circle.setAttribute('stroke-width', '1');
-
-            var text = document.createElementNS(ns, 'text');
-            text.setAttribute('x', x);
-            text.setAttribute('y', y);
-            text.setAttribute('text-anchor', 'middle');
-            text.setAttribute('dominant-baseline', 'middle');
-            text.innerHTML = node.key;
-
-            var group = document.createElementNS(ns, 'g');
-            group.appendChild(circle);
-            group.appendChild(text);
-
-            return group;
-        }
-    }, {
-        key: 'drawNode',
-        value: function drawNode(node, x, y, parX, parY) {
-            if (node.left !== null) {
-                var newX = x - Math.abs(x - parX) / 2;
-                var newY = y + (y - parY);
-                this.drawLink(x, y, newX, newY);
-                this.drawNode(node.left, newX, newY, x, y);
-            }
-            if (node.right !== null) {
-                var _newX = x + Math.abs(x - parX) / 2;
-                var _newY = y + (y - parY);
-                this.drawLink(x, y, _newX, _newY);
-                this.drawNode(node.right, _newX, _newY, x, y);
-            }
-
-            var circle = this.createCircle(node, x, y, CIRCLE_RADIUS);
-            this.SVG.appendChild(circle);
-        }
-    }, {
-        key: 'update',
-        value: function update() {
-            this.clear();
-            this.buildTree();
-        }
-    }]);
-
-    return TreeView;
-}(_SVGView3.default);
-
-exports.default = TreeView;
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(0);
-
+setTimeout(function () {
+    tree.root.rotateRight();
+    view.update();
+}, 3000);
 
 /***/ })
 /******/ ]);

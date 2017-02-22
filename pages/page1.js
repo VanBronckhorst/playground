@@ -1,5 +1,5 @@
-import BSTree from './classes/BSTree';
-import TreeView from './views/TreeView';
+import BSTree from '../classes/BSTree';
+import TreeView from '../views/TreeView';
 
 const tree = new BSTree();
 for (let i = 0; i < 10; i++) {

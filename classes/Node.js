@@ -8,6 +8,10 @@ class Node {
     get key() {
         return this[KEY];
     }
+
+    set key(val) {
+        this[KEY] = val;
+    }
 }
 
 export default Node;

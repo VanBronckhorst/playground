@@ -92,7 +92,10 @@ export default class TreeView extends SVGView{
         this.SVG.appendChild(circle);
     }
 
-
+    update() {
+        this.clear();
+        this.buildTree();
+    }
     
 }
 
