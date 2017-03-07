@@ -588,7 +588,7 @@ for (var i = 0; i < 10; i++) {
 }
 
 console.log(tree);
-var view = new _TreeView2.default(document.getElementById('main'), tree);
+var view = new _TreeView2.default(document.getElementById('viz'), tree);
 
 setTimeout(function () {
     tree.root.rotateLeft();

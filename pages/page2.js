@@ -1,15 +1,12 @@
-import BSTree from '../classes/BSTree';
+import AVLTree from '../classes/AVLTree';
 import TreeView from '../views/TreeView';
 
-const tree = new BSTree();
-for (let i = 0; i < 10; i++) {
+const tree = new AVLTree();
+for (let i = 0; i < 20; i++) {
     tree.insert(Math.round(Math.random() * 100));
 }
 
 console.log(tree);
-let view = new TreeView(document.getElementById('main'), tree);
+let view = new TreeView(document.getElementById('viz'), tree);
 
-setTimeout(() => {
-    tree.root.rotateRight();
-    view.update();
-}, 3000)
+

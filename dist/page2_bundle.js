@@ -573,9 +573,9 @@ exports.default = SVGView;
 "use strict";
 
 
-var _BSTree = __webpack_require__(0);
+var _AVLTree = __webpack_require__(9);
 
-var _BSTree2 = _interopRequireDefault(_BSTree);
+var _AVLTree2 = _interopRequireDefault(_AVLTree);
 
 var _TreeView = __webpack_require__(1);
 
@@ -583,18 +583,183 @@ var _TreeView2 = _interopRequireDefault(_TreeView);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var tree = new _BSTree2.default();
-for (var i = 0; i < 10; i++) {
+var tree = new _AVLTree2.default();
+for (var i = 0; i < 20; i++) {
     tree.insert(Math.round(Math.random() * 100));
 }
 
 console.log(tree);
-var view = new _TreeView2.default(document.getElementById('main'), tree);
+var view = new _TreeView2.default(document.getElementById('viz'), tree);
 
-setTimeout(function () {
-    tree.root.rotateRight();
-    view.update();
-}, 3000);
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _BSTree2 = __webpack_require__(0);
+
+var _BSTree3 = _interopRequireDefault(_BSTree2);
+
+var _AVLNode = __webpack_require__(10);
+
+var _AVLNode2 = _interopRequireDefault(_AVLNode);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var AVLTree = function (_BSTree) {
+    _inherits(AVLTree, _BSTree);
+
+    function AVLTree() {
+        _classCallCheck(this, AVLTree);
+
+        return _possibleConstructorReturn(this, (AVLTree.__proto__ || Object.getPrototypeOf(AVLTree)).call(this));
+    }
+
+    _createClass(AVLTree, [{
+        key: 'insert',
+        value: function insert(key) {
+            if (this.root === null) {
+                this.root = new _AVLNode2.default(key);
+                return;
+            }
+
+            return this.root.insert(key);
+        }
+    }]);
+
+    return AVLTree;
+}(_BSTree3.default);
+
+exports.default = AVLTree;
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _BSTNode2 = __webpack_require__(2);
+
+var _BSTNode3 = _interopRequireDefault(_BSTNode2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var AVLNode = function (_BSTNode) {
+    _inherits(AVLNode, _BSTNode);
+
+    function AVLNode(key) {
+        _classCallCheck(this, AVLNode);
+
+        return _possibleConstructorReturn(this, (AVLNode.__proto__ || Object.getPrototypeOf(AVLNode)).call(this, key));
+    }
+
+    _createClass(AVLNode, [{
+        key: 'rebalance',
+        value: function rebalance() {
+            var rightH = this.right === null ? -1 : this.right.height;
+            var leftH = this.left === null ? -1 : this.left.height;
+
+            if (Math.abs(rightH - leftH) > 1) {
+                if (this.isRightHeavy) {
+                    //rightHeavy
+                    if (this.right.isRightHeavy || this.right.isBalanced) {
+                        this.rotateLeft();
+                    } else {
+                        this.right.rotateRight();
+                        this.rotateLeft();
+                    }
+                } else if (this.isLeftHeavy) {
+                    //leftHeavy
+                    if (this.left.isLeftHeavy || this.isBalanced) {
+                        this.rotateRight();
+                    } else {
+                        this.left.rotateLeft();
+                        this.rotateRight();
+                    }
+                }
+            }
+        }
+    }, {
+        key: 'insert',
+        value: function insert(key) {
+            if (key === this.key) {
+                return;
+            }
+
+            if (key > this.key) {
+                if (this.right !== null) {
+                    this.right.insert(key);
+                    this.rebalance();
+                } else {
+                    this.right = new AVLNode(key);
+                    this.rebalance();
+                }
+            }
+
+            if (key < this.key) {
+                if (this.left !== null) {
+                    this.left.insert(key);
+                    this.rebalance();
+                } else {
+                    this.left = new AVLNode(key);
+                    this.rebalance();
+                }
+            }
+        }
+    }, {
+        key: 'isRightHeavy',
+        get: function get() {
+            var rightH = this.right === null ? -1 : this.right.height;
+            var leftH = this.left === null ? -1 : this.left.height;
+            return rightH > leftH;
+        }
+    }, {
+        key: 'isLeftHeavy',
+        get: function get() {
+            var rightH = this.right === null ? -1 : this.right.height;
+            var leftH = this.left === null ? -1 : this.left.height;
+            return rightH < leftH;
+        }
+    }, {
+        key: 'isBalanced',
+        get: function get() {
+            var rightH = this.right === null ? -1 : this.right.height;
+            var leftH = this.left === null ? -1 : this.left.height;
+            return rightH === leftH;
+        }
+    }]);
+
+    return AVLNode;
+}(_BSTNode3.default);
+
+exports.default = AVLNode;
 
 /***/ })
 /******/ ]);

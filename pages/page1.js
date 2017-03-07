@@ -7,7 +7,7 @@ for (let i = 0; i < 10; i++) {
 }
 
 console.log(tree);
-let view = new TreeView(document.getElementById('main'), tree);
+let view = new TreeView(document.getElementById('viz'), tree);
 
 setTimeout(() => {
     tree.root.rotateLeft();
