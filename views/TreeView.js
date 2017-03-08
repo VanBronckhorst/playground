@@ -1,5 +1,7 @@
 import SVGView from './SVGView.js';
-const CIRCLE_RADIUS = 25;
+const CIRCLE_RADIUS = 20;
+const LEAF_DIST = 2.2;
+const PARENT_DIST = 5;
 
 export default class TreeView extends SVGView{
     constructor(domParent, tree) {
@@ -19,8 +21,8 @@ export default class TreeView extends SVGView{
         const rows = treeH + 1;
         const cols = Math.pow(2, treeH);
 
-        const W = (CIRCLE_RADIUS * 2.2) * cols;
-        const H = (CIRCLE_RADIUS * 5) * rows;
+        const W = (CIRCLE_RADIUS * LEAF_DIST) * cols;
+        const H = (CIRCLE_RADIUS * PARENT_DIST) * rows;
 
         SVG.setAttribute('viewBox', `0 0 ${W} ${H}`);
         // SVG.setAttribute('preserveAspectRatio', 'xMidYMin');
@@ -44,7 +46,7 @@ export default class TreeView extends SVGView{
         line.setAttribute('y1', y1);
         line.setAttribute('y2', y2);
         line.setAttribute('stroke', 'black');
-        line.setAttribute('stroke-width', '3');
+        line.setAttribute('stroke-width', '1');
         this.SVG.appendChild(line);
     }
 
@@ -55,7 +57,7 @@ export default class TreeView extends SVGView{
         circle.setAttribute('cx', x);
         circle.setAttribute('cy', y);
         circle.setAttribute('r', r);
-        circle.setAttribute('fill', 'red');
+        circle.setAttribute('fill', '#EEEEEE');
         circle.setAttribute('stroke', 'black');
         circle.setAttribute('stroke-width', '1');
 

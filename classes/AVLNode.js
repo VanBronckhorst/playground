@@ -26,7 +26,7 @@ export default class AVLNode extends BSTNode {
     rebalance() {
         const rightH = this.right === null ? -1 : this.right.height;
         const leftH = this.left === null ? -1 : this.left.height;
-        
+
         if (Math.abs(rightH - leftH) > 1){
             if (this.isRightHeavy) {
                 //rightHeavy
