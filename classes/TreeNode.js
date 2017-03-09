@@ -40,11 +40,11 @@ export default class TreeNode extends Node {
             throw new Error('Cannot perform right rotation because there is no left child');
         }
 
-        let oldLeftKey = this[LEFT].key;
-        let oldThisKey = this.key;
+        let oldLeftData = this.left.data;
+        let oldThisData = this.data;
         let oldLeft = this[LEFT];
-        this.key = oldLeftKey;
-        oldLeft.key = oldThisKey;
+        this.data = oldLeftData;
+        oldLeft.data = oldThisData;
         this[LEFT] = oldLeft.left;
         oldLeft.left = oldLeft.right;
         oldLeft.right = this.right;
@@ -56,11 +56,11 @@ export default class TreeNode extends Node {
             throw new Error('Cannot perform left rotation because there is no right child');
         }
 
-        let oldRightKey = this.right.key;
-        let oldThisKey = this.key;
+        let oldRightData = this.right.data;
+        let oldThisData = this.data;
         let oldRight = this.right;
-        this.key = oldRightKey;
-        oldRight.key = oldThisKey;
+        this.data = oldRightData;
+        oldRight.data = oldThisData;
         this.right = oldRight.right;
         oldRight.right = oldRight.left;
         oldRight.left = this.left;

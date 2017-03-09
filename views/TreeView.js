@@ -66,7 +66,7 @@ export default class TreeView extends SVGView{
         text.setAttribute('y', y);
         text.setAttribute('text-anchor', 'middle');
         text.setAttribute('dominant-baseline', 'middle');
-        text.innerHTML = node.key;
+        text.innerHTML = node.content;
 
         let group = document.createElementNS(ns, 'g');
         group.appendChild(circle);

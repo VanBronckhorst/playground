@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 12);
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -453,8 +453,64 @@ var SVGView = function () {
 exports.default = SVGView;
 
 /***/ }),
-/* 5 */,
-/* 6 */
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Tree2 = __webpack_require__(2);
+
+var _Tree3 = _interopRequireDefault(_Tree2);
+
+var _CartesianNode = __webpack_require__(8);
+
+var _CartesianNode2 = _interopRequireDefault(_CartesianNode);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CartesianTree = function (_Tree) {
+    _inherits(CartesianTree, _Tree);
+
+    function CartesianTree() {
+        _classCallCheck(this, CartesianTree);
+
+        return _possibleConstructorReturn(this, (CartesianTree.__proto__ || Object.getPrototypeOf(CartesianTree)).call(this, null));
+    }
+
+    _createClass(CartesianTree, [{
+        key: 'insert',
+        value: function insert(key, heapKey) {
+            if (this.root === null) {
+                this.root = new _CartesianNode2.default(key, heapKey);
+                return;
+            }
+
+            return this.root.insert(key, heapKey);
+        }
+    }]);
+
+    return CartesianTree;
+}(_Tree3.default);
+
+exports.default = CartesianTree;
+
+/***/ }),
+/* 6 */,
+/* 7 */,
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -478,284 +534,86 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var BSTNode = function (_TreeNode) {
-    _inherits(BSTNode, _TreeNode);
+var HEAP_KEY = Symbol();
 
-    function BSTNode(key) {
-        _classCallCheck(this, BSTNode);
+var CartesianNode = function (_TreeNode) {
+    _inherits(CartesianNode, _TreeNode);
 
-        return _possibleConstructorReturn(this, (BSTNode.__proto__ || Object.getPrototypeOf(BSTNode)).call(this, key));
+    function CartesianNode(key, heapKey) {
+        _classCallCheck(this, CartesianNode);
+
+        var _this = _possibleConstructorReturn(this, (CartesianNode.__proto__ || Object.getPrototypeOf(CartesianNode)).call(this, key));
+
+        _this.data[HEAP_KEY] = heapKey;
+        _this.parent = null;
+        return _this;
     }
 
-    _createClass(BSTNode, [{
+    _createClass(CartesianNode, [{
         key: 'insert',
-        value: function insert(key) {
+        value: function insert(key, heapKey) {
             if (key === this.key) {
                 return;
             }
 
             if (key > this.key) {
                 if (this.right !== null) {
-                    this.right.insert(key);
+                    this.right.insert(key, heapKey);
                 } else {
-                    this.right = new BSTNode(key);
-                    return this.right;
+                    this.right = new CartesianNode(key, heapKey);
                 }
+                if (this.right.heapKey > this.heapKey) {
+                    this.rotateLeft();
+                }
+                return;
             }
 
             if (key < this.key) {
                 if (this.left !== null) {
-                    this.left.insert(key);
+                    this.left.insert(key, heapKey);
                 } else {
-                    this.left = new BSTNode(key);
-                    return this.left;
+                    this.left = new CartesianNode(key, heapKey);
                 }
+                if (this.left.heapKey > this.heapKey) {
+                    this.rotateRight();
+                }
+                return;
             }
+        }
+    }, {
+        key: 'heapKey',
+        get: function get() {
+            return this.data[HEAP_KEY];
+        },
+        set: function set(k) {
+            this.data[HEAP_KEY] = k;
+        }
+    }, {
+        key: 'content',
+        get: function get() {
+            return this.key + '|' + this.heapKey;
         }
     }]);
 
-    return BSTNode;
+    return CartesianNode;
 }(_TreeNode3.default);
 
-exports.default = BSTNode;
+exports.default = CartesianNode;
 
 /***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _Tree2 = __webpack_require__(2);
-
-var _Tree3 = _interopRequireDefault(_Tree2);
-
-var _BSTNode = __webpack_require__(6);
-
-var _BSTNode2 = _interopRequireDefault(_BSTNode);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var BSTree = function (_Tree) {
-    _inherits(BSTree, _Tree);
-
-    function BSTree() {
-        _classCallCheck(this, BSTree);
-
-        return _possibleConstructorReturn(this, (BSTree.__proto__ || Object.getPrototypeOf(BSTree)).call(this, null));
-    }
-
-    _createClass(BSTree, [{
-        key: 'insert',
-        value: function insert(key) {
-            if (this.root === null) {
-                this.root = new _BSTNode2.default(key);
-                return;
-            }
-
-            return this.root.insert(key);
-        }
-    }]);
-
-    return BSTree;
-}(_Tree3.default);
-
-exports.default = BSTree;
-
-/***/ }),
-/* 8 */,
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _BSTree2 = __webpack_require__(7);
-
-var _BSTree3 = _interopRequireDefault(_BSTree2);
-
-var _AVLNode = __webpack_require__(10);
-
-var _AVLNode2 = _interopRequireDefault(_AVLNode);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AVLTree = function (_BSTree) {
-    _inherits(AVLTree, _BSTree);
-
-    function AVLTree() {
-        _classCallCheck(this, AVLTree);
-
-        return _possibleConstructorReturn(this, (AVLTree.__proto__ || Object.getPrototypeOf(AVLTree)).call(this));
-    }
-
-    _createClass(AVLTree, [{
-        key: 'insert',
-        value: function insert(key) {
-            if (this.root === null) {
-                this.root = new _AVLNode2.default(key);
-                return;
-            }
-
-            return this.root.insert(key);
-        }
-    }]);
-
-    return AVLTree;
-}(_BSTree3.default);
-
-exports.default = AVLTree;
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _BSTNode2 = __webpack_require__(6);
-
-var _BSTNode3 = _interopRequireDefault(_BSTNode2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AVLNode = function (_BSTNode) {
-    _inherits(AVLNode, _BSTNode);
-
-    function AVLNode(key) {
-        _classCallCheck(this, AVLNode);
-
-        return _possibleConstructorReturn(this, (AVLNode.__proto__ || Object.getPrototypeOf(AVLNode)).call(this, key));
-    }
-
-    _createClass(AVLNode, [{
-        key: 'rebalance',
-        value: function rebalance() {
-            var rightH = this.right === null ? -1 : this.right.height;
-            var leftH = this.left === null ? -1 : this.left.height;
-
-            if (Math.abs(rightH - leftH) > 1) {
-                if (this.isRightHeavy) {
-                    //rightHeavy
-                    if (this.right.isRightHeavy || this.right.isBalanced) {
-                        this.rotateLeft();
-                    } else {
-                        this.right.rotateRight();
-                        this.rotateLeft();
-                    }
-                } else if (this.isLeftHeavy) {
-                    //leftHeavy
-                    if (this.left.isLeftHeavy || this.isBalanced) {
-                        this.rotateRight();
-                    } else {
-                        this.left.rotateLeft();
-                        this.rotateRight();
-                    }
-                }
-            }
-        }
-    }, {
-        key: 'insert',
-        value: function insert(key) {
-            if (key === this.key) {
-                return;
-            }
-
-            if (key > this.key) {
-                if (this.right !== null) {
-                    this.right.insert(key);
-                    this.rebalance();
-                } else {
-                    this.right = new AVLNode(key);
-                    this.rebalance();
-                }
-            }
-
-            if (key < this.key) {
-                if (this.left !== null) {
-                    this.left.insert(key);
-                    this.rebalance();
-                } else {
-                    this.left = new AVLNode(key);
-                    this.rebalance();
-                }
-            }
-        }
-    }, {
-        key: 'isRightHeavy',
-        get: function get() {
-            var rightH = this.right === null ? -1 : this.right.height;
-            var leftH = this.left === null ? -1 : this.left.height;
-            return rightH > leftH;
-        }
-    }, {
-        key: 'isLeftHeavy',
-        get: function get() {
-            var rightH = this.right === null ? -1 : this.right.height;
-            var leftH = this.left === null ? -1 : this.left.height;
-            return rightH < leftH;
-        }
-    }, {
-        key: 'isBalanced',
-        get: function get() {
-            var rightH = this.right === null ? -1 : this.right.height;
-            var leftH = this.left === null ? -1 : this.left.height;
-            return rightH === leftH;
-        }
-    }]);
-
-    return AVLNode;
-}(_BSTNode3.default);
-
-exports.default = AVLNode;
-
-/***/ }),
+/* 9 */,
+/* 10 */,
 /* 11 */,
-/* 12 */
+/* 12 */,
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _AVLTree = __webpack_require__(9);
+var _CartesianTree = __webpack_require__(5);
 
-var _AVLTree2 = _interopRequireDefault(_AVLTree);
+var _CartesianTree2 = _interopRequireDefault(_CartesianTree);
 
 var _TreeView = __webpack_require__(0);
 
@@ -763,16 +621,21 @@ var _TreeView2 = _interopRequireDefault(_TreeView);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var tree = new _AVLTree2.default();
-for (var i = 0; i < 50; i++) {
-    tree.insert(Math.round(Math.random() * 100));
+var tree = new _CartesianTree2.default();
+var array = [];
+for (var i = 0; i < 10; i++) {
+    var val = Math.round(Math.random() * 100);
+    tree.insert(val, i);
+    array.push(val);
 }
-
+console.log(array);
 console.log(tree);
 var view = new _TreeView2.default(document.getElementById('viz'), tree);
 
 function addValue() {
-    tree.insert(Math.round(Math.random() * 100));
+    var val = Math.round(Math.random() * 100);
+    tree.insert(val, array.length);
+    array.push(val);
     view.update();
 }
 

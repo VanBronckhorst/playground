@@ -1,4 +1,5 @@
 .full-SVG {
+    width: 100%;
 }
 
 #main {
@@ -13,7 +14,7 @@
 }
 
 #viz{
-    
+    width: 100%;
 }
 
 body {

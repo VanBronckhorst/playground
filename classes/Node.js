@@ -2,15 +2,20 @@ const KEY = Symbol();
 
 class Node {
     constructor(key) {
-        this[KEY] = key;
+        this.data = {};
+        this.data[KEY] = key;
     }
 
     get key() {
-        return this[KEY];
+        return this.data[KEY];
     }
 
     set key(val) {
-        this[KEY] = val;
+        this.data[KEY] = val;
+    }
+
+    get content() {
+        return this.key;
     }
 }
 
