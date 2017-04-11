@@ -1,4 +1,4 @@
-import AVLTree from '../classes/AVLTree';
+import AVLTree from '../classes/Tree/AVLTree';
 import TreeView from '../views/TreeView';
 
 

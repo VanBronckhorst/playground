@@ -1,4 +1,4 @@
-import CartesianTree from '../classes/CartesianTree';
+import CartesianTree from '../classes/Tree/CartesianTree';
 import TreeView from '../views/TreeView';
 
 

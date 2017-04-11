@@ -1,41 +1,41 @@
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-
+/******/
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
-
+/******/
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
 /******/ 			exports: {}
 /******/ 		};
-
+/******/
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-
+/******/
 /******/ 		// Flag the module as loaded
 /******/ 		module.l = true;
-
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-
-
+/******/
+/******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-
+/******/
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-
+/******/
 /******/ 	// identity function for calling harmony imports with the correct context
 /******/ 	__webpack_require__.i = function(value) { return value; };
-
+/******/
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
@@ -46,7 +46,7 @@
 /******/ 			});
 /******/ 		}
 /******/ 	};
-
+/******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function(module) {
 /******/ 		var getter = module && module.__esModule ?
@@ -55,15 +55,15 @@
 /******/ 		__webpack_require__.d(getter, 'a', getter);
 /******/ 		return getter;
 /******/ 	};
-
+/******/
 /******/ 	// Object.prototype.hasOwnProperty.call
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-
+/******/
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-
+/******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 15);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -79,7 +79,53 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _SVGView2 = __webpack_require__(4);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var SVG = Symbol();
+
+var SVGView = function () {
+    function SVGView(domParent) {
+        _classCallCheck(this, SVGView);
+
+        var ns = 'http://www.w3.org/2000/svg';
+        this[SVG] = document.createElementNS(ns, 'svg');
+        domParent.appendChild(this[SVG]);
+        this[SVG].setAttribute('class', 'full-SVG');
+    }
+
+    _createClass(SVGView, [{
+        key: 'clear',
+        value: function clear() {
+            while (this.SVG.hasChildNodes()) {
+                this.SVG.removeChild(this.SVG.lastChild);
+            }
+        }
+    }, {
+        key: 'SVG',
+        get: function get() {
+            return this[SVG];
+        }
+    }]);
+
+    return SVGView;
+}();
+
+exports.default = SVGView;
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _SVGView2 = __webpack_require__(0);
 
 var _SVGView3 = _interopRequireDefault(_SVGView2);
 
@@ -209,7 +255,7 @@ var TreeView = function (_SVGView) {
 exports.default = TreeView;
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -254,7 +300,7 @@ var Node = function () {
 exports.default = Node;
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -301,7 +347,7 @@ var Tree = function () {
 exports.default = Tree;
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -313,7 +359,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Node2 = __webpack_require__(1);
+var _Node2 = __webpack_require__(2);
 
 var _Node3 = _interopRequireDefault(_Node2);
 
@@ -407,54 +453,10 @@ var TreeNode = function (_Node) {
 exports.default = TreeNode;
 
 /***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var SVG = Symbol();
-
-var SVGView = function () {
-    function SVGView(domParent) {
-        _classCallCheck(this, SVGView);
-
-        var ns = 'http://www.w3.org/2000/svg';
-        this[SVG] = document.createElementNS(ns, 'svg');
-        domParent.appendChild(this[SVG]);
-        this[SVG].setAttribute('class', 'full-SVG');
-    }
-
-    _createClass(SVGView, [{
-        key: 'clear',
-        value: function clear() {
-            while (this.SVG.hasChildNodes()) {
-                this.SVG.removeChild(this.SVG.lastChild);
-            }
-        }
-    }, {
-        key: 'SVG',
-        get: function get() {
-            return this[SVG];
-        }
-    }]);
-
-    return SVGView;
-}();
-
-exports.default = SVGView;
-
-/***/ }),
 /* 5 */,
-/* 6 */
+/* 6 */,
+/* 7 */,
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -466,7 +468,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _TreeNode2 = __webpack_require__(3);
+var _TreeNode2 = __webpack_require__(4);
 
 var _TreeNode3 = _interopRequireDefault(_TreeNode2);
 
@@ -520,7 +522,7 @@ var BSTNode = function (_TreeNode) {
 exports.default = BSTNode;
 
 /***/ }),
-/* 7 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -532,11 +534,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Tree2 = __webpack_require__(2);
+var _Tree2 = __webpack_require__(3);
 
 var _Tree3 = _interopRequireDefault(_Tree2);
 
-var _BSTNode = __webpack_require__(6);
+var _BSTNode = __webpack_require__(8);
 
 var _BSTNode2 = _interopRequireDefault(_BSTNode);
 
@@ -575,32 +577,42 @@ var BSTree = function (_Tree) {
 exports.default = BSTree;
 
 /***/ }),
-/* 8 */,
-/* 9 */,
 /* 10 */,
-/* 11 */
+/* 11 */,
+/* 12 */,
+/* 13 */,
+/* 14 */,
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _BSTree = __webpack_require__(7);
+var _BSTree = __webpack_require__(9);
 
 var _BSTree2 = _interopRequireDefault(_BSTree);
 
-var _TreeView = __webpack_require__(0);
+var _TreeView = __webpack_require__(1);
 
 var _TreeView2 = _interopRequireDefault(_TreeView);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var tree = new _BSTree2.default();
-for (var i = 0; i < 10; i++) {
+for (var i = 0; i < 5; i++) {
     tree.insert(Math.round(Math.random() * 100));
+}
+
+function addValue() {
+    tree.insert(Math.round(Math.random() * 100));
+    view.update();
 }
 
 console.log(tree);
 var view = new _TreeView2.default(document.getElementById('viz'), tree);
+
+// Interface Bindings
+document.getElementById('addValueBtn').addEventListener('click', addValue);
 
 /***/ })
 /******/ ]);
