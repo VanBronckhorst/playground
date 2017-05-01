@@ -63,12 +63,11 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 13);
+/******/ 	return __webpack_require__(__webpack_require__.s = 14);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ 0:
+/******/ ([
+/* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -114,49 +113,11 @@ var SVGView = function () {
 exports.default = SVGView;
 
 /***/ }),
-
-/***/ 13:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _Matrix = __webpack_require__(5);
-
-var _Matrix2 = _interopRequireDefault(_Matrix);
-
-var _MazeMatrixView = __webpack_require__(7);
-
-var _MazeMatrixView2 = _interopRequireDefault(_MazeMatrixView);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var WALL = 1;
-
-var m = new _Matrix2.default(5, 5, function () {
-    return Math.random() < 0.2 ? WALL : 0;
-});
-
-var view = new _MazeMatrixView2.default(document.getElementById('viz'), m, blockClicked);
-
-view.highlightRect(biggestRect(m));
-
-function blockClicked(r, c) {
-    if (m.get(r, c) === 0) {
-        m.set(r, c, 1);
-    } else {
-        m.set(r, c, 0);
-    }
-
-    view.update();
-    view.highlightRect(biggestRect(m));
-}
-
-function biggestRect(matrix) {}
-
-/***/ }),
-
-/***/ 5:
+/* 1 */,
+/* 2 */,
+/* 3 */,
+/* 4 */,
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -240,8 +201,8 @@ var Matrix = function () {
 exports.default = Matrix;
 
 /***/ }),
-
-/***/ 7:
+/* 6 */,
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -371,7 +332,6 @@ var TreeView = function (_SVGView) {
         key: 'updateBlock',
         value: function updateBlock(r, c) {
             var block = this.blockMatrix.get(r, c);
-            console.log(this.matrix.get(r, c));
             block.setAttribute('fill', this.matrix.get(r, c) === 0 ? EMPTY_COL : WALL_COL);
         }
     }, {
@@ -395,6 +355,192 @@ var TreeView = function (_SVGView) {
 
 exports.default = TreeView;
 
-/***/ })
+/***/ }),
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
 
-/******/ });
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var STACK = Symbol();
+
+var Stack = function () {
+    function Stack() {
+        _classCallCheck(this, Stack);
+
+        this[STACK] = [];
+    }
+
+    _createClass(Stack, [{
+        key: "pop",
+        value: function pop() {
+            return this[STACK].pop();
+        }
+    }, {
+        key: "push",
+        value: function push(element) {
+            this[STACK].push(element);
+        }
+    }, {
+        key: "peek",
+        value: function peek() {
+            var len = this[STACK].length;
+            if (len == 0) {
+                return null;
+            }
+            return this[STACK][len - 1];
+        }
+    }]);
+
+    return Stack;
+}();
+
+exports.default = Stack;
+
+/***/ }),
+/* 12 */,
+/* 13 */,
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _Matrix = __webpack_require__(5);
+
+var _Matrix2 = _interopRequireDefault(_Matrix);
+
+var _MazeMatrixView = __webpack_require__(7);
+
+var _MazeMatrixView2 = _interopRequireDefault(_MazeMatrixView);
+
+var _Stack = __webpack_require__(11);
+
+var _Stack2 = _interopRequireDefault(_Stack);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var WALL = 1;
+
+var m = new _Matrix2.default(15, 25, function () {
+    return Math.random() < 0.2 ? WALL : 0;
+});
+
+var view = new _MazeMatrixView2.default(document.getElementById('viz'), m, blockClicked);
+
+view.highlightRect(biggestRect(m));
+
+function blockClicked(r, c) {
+    if (m.get(r, c) === 0) {
+        m.set(r, c, 1);
+    } else {
+        m.set(r, c, 0);
+    }
+
+    view.update();
+    view.highlightRect(biggestRect(m));
+}
+
+// creates an array for each row as if it was an histogram
+// find the largest area in the histogram with O(n) subroutine
+function biggestRect(matrix) {
+    var row = [];
+    // creates empty for start step
+    for (var i = 0; i < matrix.columns; i++) {
+        row.push(0);
+    }
+
+    var maxArea = 0;
+    var maxObj = {
+        r: 0,
+        c: 0,
+        w: 0,
+        h: 0
+    };
+
+    // creates row for each row and run subroutine
+    for (var _i = 0; _i < matrix.rows; _i++) {
+        for (var j = 0; j < matrix.columns; j++) {
+            if (matrix.get(_i, j) === 1) {
+                row[j] = 0;
+            } else {
+                row[j]++;
+            }
+        }
+        // row represents the matrix above this row viewed as an histogram
+        var maxAreaRect = biggestAreaInHistogram(row);
+        if (maxAreaRect.area > maxArea) {
+            maxArea = maxAreaRect.area;
+            var h = maxAreaRect.area / maxAreaRect.width;
+            maxObj = {
+                c: maxAreaRect.start,
+                r: _i - h + 1,
+                w: maxAreaRect.width,
+                h: h
+            };
+        }
+    }
+
+    return maxObj;
+}
+
+// finds the biggest area in a histogram in O(n)
+function biggestAreaInHistogram(hist) {
+    var stack = new _Stack2.default();
+
+    var maxArea = -1;
+    var maxStart = 0;
+    var maxWidth = 0;
+
+    var i = 0;
+    while (i < hist.length) {
+        var top = stack.peek();
+        if (top === null || hist[top] <= hist[i]) {
+            stack.push(i++);
+        } else {
+            top = stack.pop();
+            var lim = stack.peek() === null ? -1 : stack.peek();
+
+            var areaForTop = hist[top] * (i - lim - 1);
+
+            if (areaForTop >= maxArea) {
+                maxArea = areaForTop;
+                maxStart = lim + 1;
+                maxWidth = i - lim - 1;
+            }
+        }
+    }
+
+    while (stack.peek() !== null) {
+        var _top = stack.pop();
+        var _lim = stack.peek() === null ? -1 : stack.peek();
+
+        var _areaForTop = hist[_top] * (i - _lim - 1);
+
+        if (_areaForTop >= maxArea) {
+            maxArea = _areaForTop;
+            maxStart = _lim + 1;
+            maxWidth = i - _lim - 1;
+        }
+    }
+
+    return {
+        start: maxStart,
+        area: maxArea,
+        width: maxWidth
+    };
+}
+
+/***/ })
+/******/ ]);

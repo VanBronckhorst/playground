@@ -87,7 +87,6 @@ export default class TreeView extends SVGView{
 
     updateBlock(r, c) {
         let block = this.blockMatrix.get(r, c);
-        console.log(this.matrix.get(r,c));
         block.setAttribute('fill', this.matrix.get(r,c) === 0 ? EMPTY_COL : WALL_COL);
     }
 

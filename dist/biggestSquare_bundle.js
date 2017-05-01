@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 14);
+/******/ 	return __webpack_require__(__webpack_require__.s = 15);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -115,7 +115,7 @@ exports.default = SVGView;
 
 /***/ }),
 
-/***/ 14:
+/***/ 15:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -451,7 +451,6 @@ var TreeView = function (_SVGView) {
         key: 'updateBlock',
         value: function updateBlock(r, c) {
             var block = this.blockMatrix.get(r, c);
-            console.log(this.matrix.get(r, c));
             block.setAttribute('fill', this.matrix.get(r, c) === 0 ? EMPTY_COL : WALL_COL);
         }
     }, {
