@@ -30,7 +30,8 @@ export default class TreeView extends SVGView{
         const W = cols * BLOCK_SIZE + (cols - 1) * BLOCK_MARGIN;
         const H = rows * BLOCK_SIZE + (rows - 1) * BLOCK_MARGIN;
 
-        SVG.setAttribute('viewBox', `0 0 ${W} ${H}`);
+        super.setViewBox(0, 0, W, H);
+        //SVG.setAttribute('viewBox', `0 0 ${W} ${H}`);
 
         for (let i = 0; i < rows; i++) {
             for (let j = 0; j < cols; j++) {

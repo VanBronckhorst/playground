@@ -24,7 +24,8 @@ export default class TreeView extends SVGView{
         const W = (CIRCLE_RADIUS * LEAF_DIST) * cols;
         const H = (CIRCLE_RADIUS * PARENT_DIST) * rows;
 
-        SVG.setAttribute('viewBox', `0 0 ${W} ${H}`);
+        super.setViewBox(0, 0, W, H);
+        //SVG.setAttribute('viewBox', `0 0 ${W} ${H}`);
         // SVG.setAttribute('preserveAspectRatio', 'xMidYMin');
 
         const dX = W / cols;

@@ -1,41 +1,41 @@
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-/******/
+
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-/******/
+
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
-/******/
+
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
 /******/ 			exports: {}
 /******/ 		};
-/******/
+
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
+
 /******/ 		// Flag the module as loaded
 /******/ 		module.l = true;
-/******/
+
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/
-/******/
+
+
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-/******/
+
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-/******/
+
 /******/ 	// identity function for calling harmony imports with the correct context
 /******/ 	__webpack_require__.i = function(value) { return value; };
-/******/
+
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
@@ -46,7 +46,7 @@
 /******/ 			});
 /******/ 		}
 /******/ 	};
-/******/
+
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function(module) {
 /******/ 		var getter = module && module.__esModule ?
@@ -55,13 +55,13 @@
 /******/ 		__webpack_require__.d(getter, 'a', getter);
 /******/ 		return getter;
 /******/ 	};
-/******/
+
 /******/ 	// Object.prototype.hasOwnProperty.call
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
+
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-/******/
+
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 14);
 /******/ })
@@ -90,7 +90,8 @@ var SVGView = function () {
         var ns = 'http://www.w3.org/2000/svg';
         this[SVG] = document.createElementNS(ns, 'svg');
         domParent.appendChild(this[SVG]);
-        this[SVG].setAttribute('class', 'full-SVG');
+        // this[SVG].setAttribute('class', 'full-SVG');
+        this.domParent = domParent;
     }
 
     _createClass(SVGView, [{
@@ -98,6 +99,23 @@ var SVGView = function () {
         value: function clear() {
             while (this.SVG.hasChildNodes()) {
                 this.SVG.removeChild(this.SVG.lastChild);
+            }
+        }
+    }, {
+        key: 'setViewBox',
+        value: function setViewBox(xmin, ymin, width, height) {
+            this.SVG.setAttribute('viewBox', xmin + ' ' + ymin + ' ' + width + ' ' + height);
+
+            var style = window.getComputedStyle(this.domParent, null);
+            var H = parseFloat(style.getPropertyValue('height'));
+            var W = parseFloat(style.getPropertyValue('width'));
+
+            if (W * height / width > H) {
+                this.SVG.setAttribute('height', H);
+                this.SVG.setAttribute('width', H * width / height);
+            } else {
+                this.SVG.setAttribute('height', W * height / width);
+                this.SVG.setAttribute('width', W);
             }
         }
     }, {
@@ -214,6 +232,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
 var _SVGView2 = __webpack_require__(0);
 
 var _SVGView3 = _interopRequireDefault(_SVGView2);
@@ -270,7 +290,8 @@ var TreeView = function (_SVGView) {
             var W = cols * BLOCK_SIZE + (cols - 1) * BLOCK_MARGIN;
             var H = rows * BLOCK_SIZE + (rows - 1) * BLOCK_MARGIN;
 
-            SVG.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+            _get(TreeView.prototype.__proto__ || Object.getPrototypeOf(TreeView.prototype), 'setViewBox', this).call(this, 0, 0, W, H);
+            //SVG.setAttribute('viewBox', `0 0 ${W} ${H}`);
 
             for (var i = 0; i < rows; i++) {
                 for (var j = 0; j < cols; j++) {
@@ -433,7 +454,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var WALL = 1;
 
-var m = new _Matrix2.default(15, 25, function () {
+var m = new _Matrix2.default(50, 50, function () {
     return Math.random() < 0.2 ? WALL : 0;
 });
 

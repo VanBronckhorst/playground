@@ -3,7 +3,7 @@ import MazeView from '../views/MazeMatrixView';
 import Stack from '../classes/Queue/Stack';
 const WALL = 1;
 
-let m = new Matrix(15, 25, () => Math.random() < 0.2 ? WALL : 0);
+let m = new Matrix(50, 50, () => Math.random() < 0.2 ? WALL : 0);
 
 let view = new MazeView(document.getElementById('viz'), m, blockClicked);
 
