@@ -1,13 +1,30 @@
 import Matrix from '../classes/Matrix/Matrix';
 import MazeView from '../views/MazeMatrixView';
 import Stack from '../classes/Queue/Stack';
+import OptionsBox from '../views/OptionsBox';
+
+///////////////////////////////////// INTERFACE METHODS ////////////////////////////////////
+
 const WALL = 1;
+const DEF_ROWS = 40;
+const DEF_COLS = 40;
 
-let m = new Matrix(50, 50, () => Math.random() < 0.2 ? WALL : 0);
+const optionsContainer = document.getElementById('options');
+const options = [
+    {type: 'button', className: '', onClick: regenerate, label: 'Regenerate', className: 'button'}
+];
+const optionsView = new OptionsBox(optionsContainer, options);
 
+let m = new Matrix(DEF_ROWS, DEF_COLS, () => Math.random() < 0.2 ? WALL : 0);
 let view = new MazeView(document.getElementById('viz'), m, blockClicked);
 
 view.highlightRect(biggestRect(m));
+
+function regenerate() {
+    m = new Matrix(DEF_ROWS, DEF_COLS, () => Math.random() < 0.2 ? WALL : 0);
+    view.setMatrix(m);
+    view.highlightRect(biggestRect(m));
+}
 
 function blockClicked(r, c) {
     if (m.get(r, c) === 0) {
@@ -19,6 +36,9 @@ function blockClicked(r, c) {
     view.update();
     view.highlightRect(biggestRect(m));
 }
+
+
+//////////////////////////////////////////// ALGORITHM ///////////////////////////////////////
 
 
 // creates an array for each row as if it was an histogram

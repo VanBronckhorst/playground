@@ -1,41 +1,41 @@
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-
+/******/
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
-
+/******/
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
 /******/ 			exports: {}
 /******/ 		};
-
+/******/
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-
+/******/
 /******/ 		// Flag the module as loaded
 /******/ 		module.l = true;
-
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-
-
+/******/
+/******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-
+/******/
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-
+/******/
 /******/ 	// identity function for calling harmony imports with the correct context
 /******/ 	__webpack_require__.i = function(value) { return value; };
-
+/******/
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
@@ -46,7 +46,7 @@
 /******/ 			});
 /******/ 		}
 /******/ 	};
-
+/******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function(module) {
 /******/ 		var getter = module && module.__esModule ?
@@ -55,15 +55,15 @@
 /******/ 		__webpack_require__.d(getter, 'a', getter);
 /******/ 		return getter;
 /******/ 	};
-
+/******/
 /******/ 	// Object.prototype.hasOwnProperty.call
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-
+/******/
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-
+/******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 14);
+/******/ 	return __webpack_require__(__webpack_require__.s = 15);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -260,25 +260,24 @@ var HIGHLIGHT_STROKE = 'red';
 var HIGHLIGHT_FILL = 'white';
 var HIGHLIGHT_FILL_OPACITY = 0;
 
-var TreeView = function (_SVGView) {
-    _inherits(TreeView, _SVGView);
+var MazeMatrixView = function (_SVGView) {
+    _inherits(MazeMatrixView, _SVGView);
 
-    function TreeView(domParent, matrix, onClick) {
-        _classCallCheck(this, TreeView);
+    function MazeMatrixView(domParent, matrix, onClick) {
+        _classCallCheck(this, MazeMatrixView);
 
-        var _this = _possibleConstructorReturn(this, (TreeView.__proto__ || Object.getPrototypeOf(TreeView)).call(this, domParent));
+        var _this = _possibleConstructorReturn(this, (MazeMatrixView.__proto__ || Object.getPrototypeOf(MazeMatrixView)).call(this, domParent));
 
         _this.onClick = onClick || function () {
             return 0;
         };
         _this.matrix = matrix;
-        _this.blockMatrix = new _Matrix2.default(matrix.rows, matrix.cols);
         _this.highlighted = null;
         _this.build();
         return _this;
     }
 
-    _createClass(TreeView, [{
+    _createClass(MazeMatrixView, [{
         key: 'build',
         value: function build() {
             var SVG = this.SVG;
@@ -287,10 +286,16 @@ var TreeView = function (_SVGView) {
             var rows = matrix.rows;
             var cols = matrix.columns;
 
+            this.blockMatrix = new _Matrix2.default(matrix.rows, matrix.cols);
+            if (this.highlighted !== null) {
+                this.SVG.removeChild(this.highlighted);
+                this.highlighted = null;
+            }
+
             var W = cols * BLOCK_SIZE + (cols - 1) * BLOCK_MARGIN;
             var H = rows * BLOCK_SIZE + (rows - 1) * BLOCK_MARGIN;
 
-            _get(TreeView.prototype.__proto__ || Object.getPrototypeOf(TreeView.prototype), 'setViewBox', this).call(this, 0, 0, W, H);
+            _get(MazeMatrixView.prototype.__proto__ || Object.getPrototypeOf(MazeMatrixView.prototype), 'setViewBox', this).call(this, 0, 0, W, H);
             //SVG.setAttribute('viewBox', `0 0 ${W} ${H}`);
 
             for (var i = 0; i < rows; i++) {
@@ -309,6 +314,31 @@ var TreeView = function (_SVGView) {
                     this.updateBlock(i, j);
                 }
             }
+        }
+    }, {
+        key: 'setMatrix',
+        value: function setMatrix(matrix) {
+            if (matrix.rows === this.matrix.rows && matrix.columns === this.matrix.columns) {
+
+                this.matrix = matrix;
+                this.update();
+            } else {
+                this.clearContent();
+                this.matrix = matrix;
+                this.build();
+            }
+        }
+    }, {
+        key: 'clearContent',
+        value: function clearContent() {
+            for (var i = 0; i < this.matrix.rows; i++) {
+                for (var j = 0; j < this.matrix.columns; j++) {
+                    this.SVG.removeChild(this.blockMatrix.get(i, j));
+                }
+            }
+
+            this.blockMatrix = null;
+            this.matrix = null;
         }
     }, {
         key: 'highlightSquare',
@@ -371,10 +401,10 @@ var TreeView = function (_SVGView) {
         }
     }]);
 
-    return TreeView;
+    return MazeMatrixView;
 }(_SVGView3.default);
 
-exports.default = TreeView;
+exports.default = MazeMatrixView;
 
 /***/ }),
 /* 8 */,
@@ -431,8 +461,87 @@ exports.default = Stack;
 
 /***/ }),
 /* 12 */,
-/* 13 */,
-/* 14 */
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var OptionsBox = function () {
+    function OptionsBox(where) {
+        var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+
+        _classCallCheck(this, OptionsBox);
+
+        this.container = where;
+        this.options = options;
+        this.render();
+    }
+
+    _createClass(OptionsBox, [{
+        key: 'render',
+        value: function render() {
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
+
+            try {
+                for (var _iterator = this.options[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    var option = _step.value;
+
+                    this.container.appendChild(this.renderControl(option));
+                }
+            } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion && _iterator.return) {
+                        _iterator.return();
+                    }
+                } finally {
+                    if (_didIteratorError) {
+                        throw _iteratorError;
+                    }
+                }
+            }
+        }
+    }, {
+        key: 'renderControl',
+        value: function renderControl(option) {
+            var type = option.type;
+
+            var element = void 0;
+            switch (type) {
+                case 'button':
+                    element = document.createElement('button');
+                    element.textContent = option.label;
+                    element.addEventListener('click', option.onClick);
+                    break;
+            }
+
+            element.className = option.className;
+
+            return element;
+        }
+    }]);
+
+    return OptionsBox;
+}();
+
+exports.default = OptionsBox;
+
+/***/ }),
+/* 14 */,
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -450,17 +559,38 @@ var _Stack = __webpack_require__(11);
 
 var _Stack2 = _interopRequireDefault(_Stack);
 
+var _OptionsBox = __webpack_require__(13);
+
+var _OptionsBox2 = _interopRequireDefault(_OptionsBox);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var WALL = 1;
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var m = new _Matrix2.default(50, 50, function () {
+///////////////////////////////////// INTERFACE METHODS ////////////////////////////////////
+
+var WALL = 1;
+var DEF_ROWS = 40;
+var DEF_COLS = 40;
+
+var optionsContainer = document.getElementById('options');
+var options = [_defineProperty({ type: 'button', className: '', onClick: regenerate, label: 'Regenerate' }, 'className', 'button')];
+var optionsView = new _OptionsBox2.default(optionsContainer, options);
+
+var m = new _Matrix2.default(DEF_ROWS, DEF_COLS, function () {
     return Math.random() < 0.2 ? WALL : 0;
 });
-
 var view = new _MazeMatrixView2.default(document.getElementById('viz'), m, blockClicked);
 
 view.highlightRect(biggestRect(m));
+
+function regenerate() {
+    m = new _Matrix2.default(DEF_ROWS, DEF_COLS, function () {
+        return Math.random() < 0.2 ? WALL : 0;
+    });
+    view.setMatrix(m);
+    view.highlightRect(biggestRect(m));
+}
 
 function blockClicked(r, c) {
     if (m.get(r, c) === 0) {
@@ -472,6 +602,9 @@ function blockClicked(r, c) {
     view.update();
     view.highlightRect(biggestRect(m));
 }
+
+//////////////////////////////////////////// ALGORITHM ///////////////////////////////////////
+
 
 // creates an array for each row as if it was an histogram
 // find the largest area in the histogram with O(n) subroutine

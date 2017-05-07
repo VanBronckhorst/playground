@@ -1,5 +1,13 @@
 import CartesianTree from '../classes/Tree/CartesianTree';
 import TreeView from '../views/TreeView';
+import OptionsBox from '../views/OptionsBox';
+
+// Interface Bindings
+const optionsContainer = document.getElementById('options');
+const options = [
+    {type: 'button', className: 'button', onClick: addValue, label: 'Add Value'}
+];
+const optionsView = new OptionsBox(optionsContainer, options);
 
 
 const tree = new CartesianTree();
@@ -15,8 +23,3 @@ function addValue() {
     tree.insert(val, Math.round(Math.random() * 1000));
     view.update();
 }
-
-
-
-// Interface Bindings
-document.getElementById('addValueBtn').addEventListener('click', addValue);

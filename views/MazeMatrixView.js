@@ -10,12 +10,11 @@ const HIGHLIGHT_STROKE = 'red';
 const HIGHLIGHT_FILL = 'white';
 const HIGHLIGHT_FILL_OPACITY = 0;
 
-export default class TreeView extends SVGView{
+export default class MazeMatrixView extends SVGView{
     constructor(domParent, matrix, onClick) {
         super(domParent);
         this.onClick = onClick || (() => 0);
         this.matrix = matrix;
-        this.blockMatrix = new Matrix(matrix.rows, matrix.cols);
         this.highlighted = null;
         this.build();
     }
@@ -26,6 +25,12 @@ export default class TreeView extends SVGView{
 
         const rows = matrix.rows;
         const cols = matrix.columns;
+
+        this.blockMatrix = new Matrix(matrix.rows, matrix.cols);
+        if (this.highlighted !== null) {
+            this.SVG.removeChild(this.highlighted);
+            this.highlighted = null;
+        }
 
         const W = cols * BLOCK_SIZE + (cols - 1) * BLOCK_MARGIN;
         const H = rows * BLOCK_SIZE + (rows - 1) * BLOCK_MARGIN;
@@ -48,6 +53,30 @@ export default class TreeView extends SVGView{
                 this.updateBlock(i,j);
             }
         }
+    }
+
+    setMatrix(matrix) {
+        if (matrix.rows === this.matrix.rows &&
+            matrix.columns === this.matrix.columns) {
+            
+            this.matrix = matrix;
+            this.update();
+        }else {
+            this.clearContent();
+            this.matrix = matrix;
+            this.build();
+        }
+    }
+
+    clearContent() {
+        for (let i = 0; i < this.matrix.rows; i++) {
+            for (let j = 0; j < this.matrix.columns; j++) {
+                this.SVG.removeChild(this.blockMatrix.get(i, j));
+            }
+        }
+
+        this.blockMatrix = null;
+        this.matrix = null;
     }
 
     highlightSquare(square) {

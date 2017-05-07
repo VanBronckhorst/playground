@@ -1,12 +1,27 @@
 import Matrix from '../classes/Matrix/Matrix';
 import MazeView from '../views/MazeMatrixView';
+import OptionsBox from '../views/OptionsBox';
+
 const WALL = 1;
+const DEF_ROWS = 40;
+const DEF_COLS = 40;
 
-let m = new Matrix(5, 5, () => Math.random() < 0.2 ? WALL : 0);
+const optionsContainer = document.getElementById('options');
+const options = [
+    {type: 'button', className: '', onClick: regenerate, label: 'Regenerate', className: 'button'}
+];
+const optionsView = new OptionsBox(optionsContainer, options);
 
+let m = new Matrix(DEF_ROWS, DEF_COLS, () => Math.random() < 0.2 ? WALL : 0);
 let view = new MazeView(document.getElementById('viz'), m, blockClicked);
 
-view.highlightSquare(betterBiggerSquare(m));
+view.highlightSquare(biggestSquare(m));
+
+function regenerate() {
+    m = new Matrix(DEF_ROWS, DEF_COLS, () => Math.random() < 0.2 ? WALL : 0);
+    view.setMatrix(m);
+    view.highlightSquare(biggestSquare(m));
+}
 
 function blockClicked(r, c) {
     if (m.get(r, c) === 0) {
