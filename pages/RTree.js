@@ -4,7 +4,7 @@ import PriorityQueue from '../classes/PriorityQueue/PriorityQueue.js';
 
 let tree = new RTree();
 
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 1000; i++) {
     let minX = Math.random() * 1000;
     let minY = Math.random() * 1000;
     let maxX = minX;
@@ -14,8 +14,10 @@ for (let i = 0; i < 100; i++) {
 }
 
 console.log(tree._search({minX:5, minY:5, maxX: 6, maxY:6}));
+let closest = tree.knn(10, 10, 3);
 let view = new RTreeView(document.getElementById('viz'), tree, true);
 
+view.highlightItems(closest);
 
 
 console.log(tree);

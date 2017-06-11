@@ -1,6 +1,7 @@
 import Leaf from './Leaf.js';
 import NonLeaf from './NonLeaf.js';
 import BoundingBox from './BoundingBox.js';
+import PriorityQueue from '../PriorityQueue/PriorityQueue.js';
 
 const ROOT = Symbol();
 const M = Symbol();
@@ -205,6 +206,42 @@ class RTree {
         return res;
     }
 
+    knn(x, y, n, validator) {
+        validator = validator || (() => true);
+        if (this[ROOT].fill === 0) {return [];}
+
+        let res = [];
+        let toAnalyze = new PriorityQueue([], (a,b) => a.dist - b.dist);
+
+        let curr = {
+            node: this[ROOT],
+            dist: this[ROOT].BBox.sqDistanceFromPoint(x, y)
+        };
+
+        while (curr) {
+            curr = curr.node;
+            if (curr.isItem) {
+                if (validator(curr)) {
+                    res.push(curr);
+                    if (res.length === n) {
+                        return res;
+                    }
+                }
+            }else {
+                curr.children.forEach(c => {
+                    toAnalyze.push({
+                        node: c,
+                        dist: c.BBox.sqDistanceFromPoint(x,y)
+                    });
+                });
+            }
+
+            curr = toAnalyze.pop();
+        }
+
+        return res;
+    }
+
     get boundingBox() {
         return this[ROOT].BBox;
     }
@@ -239,6 +276,7 @@ function leastIncreasing(nodes, toAdd) {
 
     return nodes[minIndex];
 }
+
 
 
 export default RTree;

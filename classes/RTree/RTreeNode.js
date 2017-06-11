@@ -22,6 +22,10 @@ class Node {
         this.BBox.enlarge(BBox);
     }
 
+    get isItem() {
+        return false;
+    }
+
     get fill() {
         return this.children.length;
     }

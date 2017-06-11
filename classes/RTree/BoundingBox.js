@@ -29,6 +29,13 @@ class BoundingBox {
         return (newMaxX - newMinX) * (newMaxY - newMinY) - this.area;
     }
 
+    sqDistanceFromPoint(x, y) {
+        let dx = _distFromAxis(x, this.minX, this.maxX);
+        let dy = _distFromAxis(y, this.minY, this.maxY);
+        return dx * dx + dy * dy;
+    }
+
+
     intersects(other) {
         return other.minX <= this.maxX &&
             other.minY <= this.maxY &&
@@ -80,6 +87,18 @@ class BoundingBox {
         return this.maxX - this.minX;
     }
 
+}
+
+function _distFromAxis(k, min, max) {
+    if (k <= min) {
+        return min - k;
+    }
+
+    if (k <= max) {
+        return 0;
+    }
+
+    return k - max;
 }
 
 export default BoundingBox;

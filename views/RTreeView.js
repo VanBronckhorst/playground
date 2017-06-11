@@ -3,6 +3,8 @@ const PADDING = 5;
 const COLORS = ['#ffffcc','#fed976','#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026'];
 const STROKE_WIDTH = 5;
 const ITEM_RAD = 3;
+const ITEM_COLOR = '#2c3e50';
+const ITEM_PREFIX = '_item_';
 
 export default class RTreeView extends SVGView {
     constructor(domParent, tree, drawItems) {
@@ -63,10 +65,24 @@ export default class RTreeView extends SVGView {
         for (let i = 0; i < items.length; i++) {
             let item = items[i];
             if (item.type === "point") {
-                this.appendCircle(item.minX, item.minY, ITEM_RAD, {fill: 'gray'});
+                let attrs = {
+                    fill: ITEM_COLOR,
+                    id: ITEM_PREFIX + item.id
+                }
+                this.appendCircle(item.minX, item.minY, ITEM_RAD, attrs);
             }
         }
         
+    }
+
+    highlightItems(items) {
+        for (let i = 0; i < items.length; i++) {
+            let item = items[i];
+            let element = document.getElementById(ITEM_PREFIX + item.id);
+            if (item.type === "point") {
+                element.setAttribute('r', '10');
+            }
+        }
     }
 
     getBoxColor(lvl) {

@@ -189,212 +189,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var MIN_X = Symbol();
-var MIN_Y = Symbol();
-var MAX_X = Symbol();
-var MAX_Y = Symbol();
-
-var BoundingBox = function () {
-    function BoundingBox(minX, minY, maxX, maxY) {
-        _classCallCheck(this, BoundingBox);
-
-        this[MIN_X] = minX || Infinity;
-        this[MIN_Y] = minY || Infinity;
-        this[MAX_X] = maxX || -Infinity;
-        this[MAX_Y] = maxY || -Infinity;
-    }
-
-    _createClass(BoundingBox, [{
-        key: "enlarge",
-        value: function enlarge(toAdd) {
-
-            this.minX = Math.min(this.minX, toAdd.minX);
-            this.minY = Math.min(this.minY, toAdd.minY);
-            this.maxX = Math.max(this.maxX, toAdd.maxX);
-            this.maxY = Math.max(this.maxY, toAdd.maxY);
-        }
-    }, {
-        key: "enlargedArea",
-        value: function enlargedArea(toAdd) {
-            var newMinX = Math.min(this.minX, toAdd.minX);
-            var newMinY = Math.min(this.minY, toAdd.minY);
-            var newMaxX = Math.max(this.maxX, toAdd.maxX);
-            var newMaxY = Math.max(this.maxY, toAdd.maxY);
-
-            return (newMaxX - newMinX) * (newMaxY - newMinY) - this.area;
-        }
-    }, {
-        key: "intersects",
-        value: function intersects(other) {
-            return other.minX <= this.maxX && other.minY <= this.maxY && other.maxX >= this.minX && other.maxY >= this.minY;
-        }
-    }, {
-        key: "minX",
-        get: function get() {
-            return this[MIN_X];
-        },
-        set: function set(d) {
-            this[MIN_X] = d;
-        }
-    }, {
-        key: "minY",
-        get: function get() {
-            return this[MIN_Y];
-        },
-        set: function set(d) {
-            this[MIN_Y] = d;
-        }
-    }, {
-        key: "maxX",
-        get: function get() {
-            return this[MAX_X];
-        },
-        set: function set(d) {
-            this[MAX_X] = d;
-        }
-    }, {
-        key: "maxY",
-        get: function get() {
-            return this[MAX_Y];
-        },
-        set: function set(d) {
-            this[MAX_Y] = d;
-        }
-    }, {
-        key: "area",
-        get: function get() {
-            return (this.maxX - this.minX) * (this.maxY - this.minY);
-        }
-    }, {
-        key: "height",
-        get: function get() {
-            return this.maxY - this.minY;
-        }
-    }, {
-        key: "width",
-        get: function get() {
-            return this.maxX - this.minX;
-        }
-    }]);
-
-    return BoundingBox;
-}();
-
-exports.default = BoundingBox;
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _BoundingBox = __webpack_require__(12);
-
-var _BoundingBox2 = _interopRequireDefault(_BoundingBox);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var CHILDREN = Symbol();
-var HEIGHT = Symbol();
-var BBOX = Symbol();
-
-var Node = function () {
-    function Node(children) {
-        _classCallCheck(this, Node);
-
-        this[CHILDREN] = [];
-        this[HEIGHT] = 1;
-        this[BBOX] = new _BoundingBox2.default();
-
-        for (var i = 0; i < children.length; i++) {
-            this.add(children[i]);
-        }
-    }
-
-    _createClass(Node, [{
-        key: 'add',
-        value: function add(item, BBox) {
-            BBox = BBox || item.BBox;
-            this.children.push(item);
-            this.BBox.enlarge(BBox);
-        }
-    }, {
-        key: 'fill',
-        get: function get() {
-            return this.children.length;
-        }
-    }, {
-        key: 'children',
-        get: function get() {
-            return this[CHILDREN];
-        }
-    }, {
-        key: 'height',
-        get: function get() {
-            return this[HEIGHT];
-        },
-        set: function set(h) {
-            this[HEIGHT] = h;
-        }
-    }, {
-        key: 'minX',
-        get: function get() {
-            return this[BBOX].minX;
-        }
-    }, {
-        key: 'minY',
-        get: function get() {
-            return this[BBOX].minY;
-        }
-    }, {
-        key: 'maxX',
-        get: function get() {
-            return this[BBOX].maxX;
-        }
-    }, {
-        key: 'maxY',
-        get: function get() {
-            return this[BBOX].maxY;
-        }
-    }, {
-        key: 'BBox',
-        get: function get() {
-            return this[BBOX];
-        },
-        set: function set(b) {
-            this[BBOX] = b;
-        }
-    }]);
-
-    return Node;
-}();
-
-exports.default = Node;
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 var HEAP = Symbol();
 var COMPARE = Symbol();
 
@@ -502,6 +296,236 @@ function firstChild(i) {
 }
 
 /***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var MIN_X = Symbol();
+var MIN_Y = Symbol();
+var MAX_X = Symbol();
+var MAX_Y = Symbol();
+
+var BoundingBox = function () {
+    function BoundingBox(minX, minY, maxX, maxY) {
+        _classCallCheck(this, BoundingBox);
+
+        this[MIN_X] = minX || Infinity;
+        this[MIN_Y] = minY || Infinity;
+        this[MAX_X] = maxX || -Infinity;
+        this[MAX_Y] = maxY || -Infinity;
+    }
+
+    _createClass(BoundingBox, [{
+        key: "enlarge",
+        value: function enlarge(toAdd) {
+
+            this.minX = Math.min(this.minX, toAdd.minX);
+            this.minY = Math.min(this.minY, toAdd.minY);
+            this.maxX = Math.max(this.maxX, toAdd.maxX);
+            this.maxY = Math.max(this.maxY, toAdd.maxY);
+        }
+    }, {
+        key: "enlargedArea",
+        value: function enlargedArea(toAdd) {
+            var newMinX = Math.min(this.minX, toAdd.minX);
+            var newMinY = Math.min(this.minY, toAdd.minY);
+            var newMaxX = Math.max(this.maxX, toAdd.maxX);
+            var newMaxY = Math.max(this.maxY, toAdd.maxY);
+
+            return (newMaxX - newMinX) * (newMaxY - newMinY) - this.area;
+        }
+    }, {
+        key: "sqDistanceFromPoint",
+        value: function sqDistanceFromPoint(x, y) {
+            var dx = _distFromAxis(x, this.minX, this.maxX);
+            var dy = _distFromAxis(y, this.minY, this.maxY);
+            return dx * dx + dy * dy;
+        }
+    }, {
+        key: "intersects",
+        value: function intersects(other) {
+            return other.minX <= this.maxX && other.minY <= this.maxY && other.maxX >= this.minX && other.maxY >= this.minY;
+        }
+    }, {
+        key: "minX",
+        get: function get() {
+            return this[MIN_X];
+        },
+        set: function set(d) {
+            this[MIN_X] = d;
+        }
+    }, {
+        key: "minY",
+        get: function get() {
+            return this[MIN_Y];
+        },
+        set: function set(d) {
+            this[MIN_Y] = d;
+        }
+    }, {
+        key: "maxX",
+        get: function get() {
+            return this[MAX_X];
+        },
+        set: function set(d) {
+            this[MAX_X] = d;
+        }
+    }, {
+        key: "maxY",
+        get: function get() {
+            return this[MAX_Y];
+        },
+        set: function set(d) {
+            this[MAX_Y] = d;
+        }
+    }, {
+        key: "area",
+        get: function get() {
+            return (this.maxX - this.minX) * (this.maxY - this.minY);
+        }
+    }, {
+        key: "height",
+        get: function get() {
+            return this.maxY - this.minY;
+        }
+    }, {
+        key: "width",
+        get: function get() {
+            return this.maxX - this.minX;
+        }
+    }]);
+
+    return BoundingBox;
+}();
+
+function _distFromAxis(k, min, max) {
+    if (k <= min) {
+        return min - k;
+    }
+
+    if (k <= max) {
+        return 0;
+    }
+
+    return k - max;
+}
+
+exports.default = BoundingBox;
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _BoundingBox = __webpack_require__(13);
+
+var _BoundingBox2 = _interopRequireDefault(_BoundingBox);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var CHILDREN = Symbol();
+var HEIGHT = Symbol();
+var BBOX = Symbol();
+
+var Node = function () {
+    function Node(children) {
+        _classCallCheck(this, Node);
+
+        this[CHILDREN] = [];
+        this[HEIGHT] = 1;
+        this[BBOX] = new _BoundingBox2.default();
+
+        for (var i = 0; i < children.length; i++) {
+            this.add(children[i]);
+        }
+    }
+
+    _createClass(Node, [{
+        key: 'add',
+        value: function add(item, BBox) {
+            BBox = BBox || item.BBox;
+            this.children.push(item);
+            this.BBox.enlarge(BBox);
+        }
+    }, {
+        key: 'isItem',
+        get: function get() {
+            return false;
+        }
+    }, {
+        key: 'fill',
+        get: function get() {
+            return this.children.length;
+        }
+    }, {
+        key: 'children',
+        get: function get() {
+            return this[CHILDREN];
+        }
+    }, {
+        key: 'height',
+        get: function get() {
+            return this[HEIGHT];
+        },
+        set: function set(h) {
+            this[HEIGHT] = h;
+        }
+    }, {
+        key: 'minX',
+        get: function get() {
+            return this[BBOX].minX;
+        }
+    }, {
+        key: 'minY',
+        get: function get() {
+            return this[BBOX].minY;
+        }
+    }, {
+        key: 'maxX',
+        get: function get() {
+            return this[BBOX].maxX;
+        }
+    }, {
+        key: 'maxY',
+        get: function get() {
+            return this[BBOX].maxY;
+        }
+    }, {
+        key: 'BBox',
+        get: function get() {
+            return this[BBOX];
+        },
+        set: function set(b) {
+            this[BBOX] = b;
+        }
+    }]);
+
+    return Node;
+}();
+
+exports.default = Node;
+
+/***/ }),
 /* 15 */,
 /* 16 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -523,9 +547,13 @@ var _NonLeaf = __webpack_require__(20);
 
 var _NonLeaf2 = _interopRequireDefault(_NonLeaf);
 
-var _BoundingBox = __webpack_require__(12);
+var _BoundingBox = __webpack_require__(13);
 
 var _BoundingBox2 = _interopRequireDefault(_BoundingBox);
+
+var _PriorityQueue = __webpack_require__(12);
+
+var _PriorityQueue2 = _interopRequireDefault(_PriorityQueue);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -585,6 +613,7 @@ var RTree = function () {
             };
             var BBox = toBBox(item);
             item.BBox = BBox;
+            item.isItem = true;
 
             var insertionWalk = this._insertWalk(BBox);
             var insertLeaf = insertionWalk[insertionWalk.length - 1];
@@ -742,6 +771,49 @@ var RTree = function () {
             return res;
         }
     }, {
+        key: 'knn',
+        value: function knn(x, y, n, validator) {
+            validator = validator || function () {
+                return true;
+            };
+            if (this[ROOT].fill === 0) {
+                return [];
+            }
+
+            var res = [];
+            var toAnalyze = new _PriorityQueue2.default([], function (a, b) {
+                return a.dist - b.dist;
+            });
+
+            var curr = {
+                node: this[ROOT],
+                dist: this[ROOT].BBox.sqDistanceFromPoint(x, y)
+            };
+
+            while (curr) {
+                curr = curr.node;
+                if (curr.isItem) {
+                    if (validator(curr)) {
+                        res.push(curr);
+                        if (res.length === n) {
+                            return res;
+                        }
+                    }
+                } else {
+                    curr.children.forEach(function (c) {
+                        toAnalyze.push({
+                            node: c,
+                            dist: c.BBox.sqDistanceFromPoint(x, y)
+                        });
+                    });
+                }
+
+                curr = toAnalyze.pop();
+            }
+
+            return res;
+        }
+    }, {
         key: 'boundingBox',
         get: function get() {
             return this[ROOT].BBox;
@@ -815,6 +887,8 @@ var PADDING = 5;
 var COLORS = ['#ffffcc', '#fed976', '#fd8d3c', '#fc4e2a', '#e31a1c', '#bd0026', '#800026'];
 var STROKE_WIDTH = 5;
 var ITEM_RAD = 3;
+var ITEM_COLOR = '#2c3e50';
+var ITEM_PREFIX = '_item_';
 
 var RTreeView = function (_SVGView) {
     _inherits(RTreeView, _SVGView);
@@ -884,7 +958,22 @@ var RTreeView = function (_SVGView) {
             for (var i = 0; i < items.length; i++) {
                 var item = items[i];
                 if (item.type === "point") {
-                    this.appendCircle(item.minX, item.minY, ITEM_RAD, { fill: 'gray' });
+                    var attrs = {
+                        fill: ITEM_COLOR,
+                        id: ITEM_PREFIX + item.id
+                    };
+                    this.appendCircle(item.minX, item.minY, ITEM_RAD, attrs);
+                }
+            }
+        }
+    }, {
+        key: 'highlightItems',
+        value: function highlightItems(items) {
+            for (var i = 0; i < items.length; i++) {
+                var item = items[i];
+                var element = document.getElementById(ITEM_PREFIX + item.id);
+                if (item.type === "point") {
+                    element.setAttribute('r', '10');
                 }
             }
         }
@@ -913,7 +1002,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _RTreeNode2 = __webpack_require__(13);
+var _RTreeNode2 = __webpack_require__(14);
 
 var _RTreeNode3 = _interopRequireDefault(_RTreeNode2);
 
@@ -959,7 +1048,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _RTreeNode2 = __webpack_require__(13);
+var _RTreeNode2 = __webpack_require__(14);
 
 var _RTreeNode3 = _interopRequireDefault(_RTreeNode2);
 
@@ -1008,7 +1097,7 @@ var _RTreeView = __webpack_require__(18);
 
 var _RTreeView2 = _interopRequireDefault(_RTreeView);
 
-var _PriorityQueue = __webpack_require__(14);
+var _PriorityQueue = __webpack_require__(12);
 
 var _PriorityQueue2 = _interopRequireDefault(_PriorityQueue);
 
@@ -1016,7 +1105,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var tree = new _RTree2.default();
 
-for (var i = 0; i < 100; i++) {
+for (var i = 0; i < 1000; i++) {
     var minX = Math.random() * 1000;
     var minY = Math.random() * 1000;
     var maxX = minX;
@@ -1026,7 +1115,10 @@ for (var i = 0; i < 100; i++) {
 }
 
 console.log(tree._search({ minX: 5, minY: 5, maxX: 6, maxY: 6 }));
+var closest = tree.knn(10, 10, 3);
 var view = new _RTreeView2.default(document.getElementById('viz'), tree, true);
+
+view.highlightItems(closest);
 
 console.log(tree);
 
