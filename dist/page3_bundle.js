@@ -6,9 +6,9 @@
 /******/ 	function __webpack_require__(moduleId) {
 /******/
 /******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
+/******/ 		if(installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
-/******/
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
@@ -63,11 +63,90 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 19);
+/******/ 	return __webpack_require__(__webpack_require__.s = 25);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var OptionsBox = function () {
+    function OptionsBox(where) {
+        var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+
+        _classCallCheck(this, OptionsBox);
+
+        this.container = where;
+        this.options = options;
+        this.render();
+    }
+
+    _createClass(OptionsBox, [{
+        key: 'render',
+        value: function render() {
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
+
+            try {
+                for (var _iterator = this.options[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    var option = _step.value;
+
+                    this.container.appendChild(this.renderControl(option));
+                }
+            } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion && _iterator.return) {
+                        _iterator.return();
+                    }
+                } finally {
+                    if (_didIteratorError) {
+                        throw _iteratorError;
+                    }
+                }
+            }
+        }
+    }, {
+        key: 'renderControl',
+        value: function renderControl(option) {
+            var type = option.type;
+
+            var element = void 0;
+            switch (type) {
+                case 'button':
+                    element = document.createElement('button');
+                    element.textContent = option.label;
+                    element.addEventListener('click', option.onClick);
+                    break;
+            }
+
+            element.className = option.className;
+
+            return element;
+        }
+    }]);
+
+    return OptionsBox;
+}();
+
+exports.default = OptionsBox;
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -131,7 +210,7 @@ var SVGView = function () {
 exports.default = SVGView;
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -145,7 +224,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-var _SVGView2 = __webpack_require__(0);
+var _SVGView2 = __webpack_require__(1);
 
 var _SVGView3 = _interopRequireDefault(_SVGView2);
 
@@ -276,7 +355,7 @@ var TreeView = function (_SVGView) {
 exports.default = TreeView;
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -321,7 +400,7 @@ var Node = function () {
 exports.default = Node;
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -368,7 +447,7 @@ var Tree = function () {
 exports.default = Tree;
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -380,7 +459,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Node2 = __webpack_require__(2);
+var _Node2 = __webpack_require__(3);
 
 var _Node3 = _interopRequireDefault(_Node2);
 
@@ -474,8 +553,8 @@ var TreeNode = function (_Node) {
 exports.default = TreeNode;
 
 /***/ }),
-/* 5 */,
-/* 6 */
+/* 6 */,
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -487,11 +566,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Tree2 = __webpack_require__(3);
+var _Tree2 = __webpack_require__(4);
 
 var _Tree3 = _interopRequireDefault(_Tree2);
 
-var _CartesianNode = __webpack_require__(10);
+var _CartesianNode = __webpack_require__(11);
 
 var _CartesianNode2 = _interopRequireDefault(_CartesianNode);
 
@@ -530,10 +609,10 @@ var CartesianTree = function (_Tree) {
 exports.default = CartesianTree;
 
 /***/ }),
-/* 7 */,
 /* 8 */,
 /* 9 */,
-/* 10 */
+/* 10 */,
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -545,7 +624,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _TreeNode2 = __webpack_require__(4);
+var _TreeNode2 = __webpack_require__(5);
 
 var _TreeNode3 = _interopRequireDefault(_TreeNode2);
 
@@ -624,107 +703,34 @@ var CartesianNode = function (_TreeNode) {
 exports.default = CartesianNode;
 
 /***/ }),
-/* 11 */,
 /* 12 */,
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var OptionsBox = function () {
-    function OptionsBox(where) {
-        var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-
-        _classCallCheck(this, OptionsBox);
-
-        this.container = where;
-        this.options = options;
-        this.render();
-    }
-
-    _createClass(OptionsBox, [{
-        key: 'render',
-        value: function render() {
-            var _iteratorNormalCompletion = true;
-            var _didIteratorError = false;
-            var _iteratorError = undefined;
-
-            try {
-                for (var _iterator = this.options[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                    var option = _step.value;
-
-                    this.container.appendChild(this.renderControl(option));
-                }
-            } catch (err) {
-                _didIteratorError = true;
-                _iteratorError = err;
-            } finally {
-                try {
-                    if (!_iteratorNormalCompletion && _iterator.return) {
-                        _iterator.return();
-                    }
-                } finally {
-                    if (_didIteratorError) {
-                        throw _iteratorError;
-                    }
-                }
-            }
-        }
-    }, {
-        key: 'renderControl',
-        value: function renderControl(option) {
-            var type = option.type;
-
-            var element = void 0;
-            switch (type) {
-                case 'button':
-                    element = document.createElement('button');
-                    element.textContent = option.label;
-                    element.addEventListener('click', option.onClick);
-                    break;
-            }
-
-            element.className = option.className;
-
-            return element;
-        }
-    }]);
-
-    return OptionsBox;
-}();
-
-exports.default = OptionsBox;
-
-/***/ }),
+/* 13 */,
 /* 14 */,
 /* 15 */,
 /* 16 */,
 /* 17 */,
 /* 18 */,
-/* 19 */
+/* 19 */,
+/* 20 */,
+/* 21 */,
+/* 22 */,
+/* 23 */,
+/* 24 */,
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _CartesianTree = __webpack_require__(6);
+var _CartesianTree = __webpack_require__(7);
 
 var _CartesianTree2 = _interopRequireDefault(_CartesianTree);
 
-var _TreeView = __webpack_require__(1);
+var _TreeView = __webpack_require__(2);
 
 var _TreeView2 = _interopRequireDefault(_TreeView);
 
-var _OptionsBox = __webpack_require__(13);
+var _OptionsBox = __webpack_require__(0);
 
 var _OptionsBox2 = _interopRequireDefault(_OptionsBox);
 

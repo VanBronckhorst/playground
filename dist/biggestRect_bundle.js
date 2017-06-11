@@ -6,9 +6,9 @@
 /******/ 	function __webpack_require__(moduleId) {
 /******/
 /******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
+/******/ 		if(installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
-/******/
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
@@ -63,11 +63,92 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 15);
+/******/ 	return __webpack_require__(__webpack_require__.s = 21);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ 0:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var OptionsBox = function () {
+    function OptionsBox(where) {
+        var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+
+        _classCallCheck(this, OptionsBox);
+
+        this.container = where;
+        this.options = options;
+        this.render();
+    }
+
+    _createClass(OptionsBox, [{
+        key: 'render',
+        value: function render() {
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
+
+            try {
+                for (var _iterator = this.options[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    var option = _step.value;
+
+                    this.container.appendChild(this.renderControl(option));
+                }
+            } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion && _iterator.return) {
+                        _iterator.return();
+                    }
+                } finally {
+                    if (_didIteratorError) {
+                        throw _iteratorError;
+                    }
+                }
+            }
+        }
+    }, {
+        key: 'renderControl',
+        value: function renderControl(option) {
+            var type = option.type;
+
+            var element = void 0;
+            switch (type) {
+                case 'button':
+                    element = document.createElement('button');
+                    element.textContent = option.label;
+                    element.addEventListener('click', option.onClick);
+                    break;
+            }
+
+            element.className = option.className;
+
+            return element;
+        }
+    }]);
+
+    return OptionsBox;
+}();
+
+exports.default = OptionsBox;
+
+/***/ }),
+
+/***/ 1:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -131,11 +212,216 @@ var SVGView = function () {
 exports.default = SVGView;
 
 /***/ }),
-/* 1 */,
-/* 2 */,
-/* 3 */,
-/* 4 */,
-/* 5 */
+
+/***/ 14:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var STACK = Symbol();
+
+var Stack = function () {
+    function Stack() {
+        _classCallCheck(this, Stack);
+
+        this[STACK] = [];
+    }
+
+    _createClass(Stack, [{
+        key: "pop",
+        value: function pop() {
+            return this[STACK].pop();
+        }
+    }, {
+        key: "push",
+        value: function push(element) {
+            this[STACK].push(element);
+        }
+    }, {
+        key: "peek",
+        value: function peek() {
+            var len = this[STACK].length;
+            if (len == 0) {
+                return null;
+            }
+            return this[STACK][len - 1];
+        }
+    }]);
+
+    return Stack;
+}();
+
+exports.default = Stack;
+
+/***/ }),
+
+/***/ 21:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _Matrix = __webpack_require__(6);
+
+var _Matrix2 = _interopRequireDefault(_Matrix);
+
+var _MazeMatrixView = __webpack_require__(8);
+
+var _MazeMatrixView2 = _interopRequireDefault(_MazeMatrixView);
+
+var _Stack = __webpack_require__(14);
+
+var _Stack2 = _interopRequireDefault(_Stack);
+
+var _OptionsBox = __webpack_require__(0);
+
+var _OptionsBox2 = _interopRequireDefault(_OptionsBox);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+///////////////////////////////////// INTERFACE METHODS ////////////////////////////////////
+
+var WALL = 1;
+var DEF_ROWS = 40;
+var DEF_COLS = 40;
+
+var optionsContainer = document.getElementById('options');
+var options = [_defineProperty({ type: 'button', className: '', onClick: regenerate, label: 'Regenerate' }, 'className', 'button')];
+var optionsView = new _OptionsBox2.default(optionsContainer, options);
+
+var m = new _Matrix2.default(DEF_ROWS, DEF_COLS, function () {
+    return Math.random() < 0.2 ? WALL : 0;
+});
+var view = new _MazeMatrixView2.default(document.getElementById('viz'), m, blockClicked);
+
+view.highlightRect(biggestRect(m));
+
+function regenerate() {
+    m = new _Matrix2.default(DEF_ROWS, DEF_COLS, function () {
+        return Math.random() < 0.2 ? WALL : 0;
+    });
+    view.setMatrix(m);
+    view.highlightRect(biggestRect(m));
+}
+
+function blockClicked(r, c) {
+    if (m.get(r, c) === 0) {
+        m.set(r, c, 1);
+    } else {
+        m.set(r, c, 0);
+    }
+
+    view.update();
+    view.highlightRect(biggestRect(m));
+}
+
+//////////////////////////////////////////// ALGORITHM ///////////////////////////////////////
+
+
+// creates an array for each row as if it was an histogram
+// find the largest area in the histogram with O(n) subroutine
+function biggestRect(matrix) {
+    var row = [];
+    // creates empty for start step
+    for (var i = 0; i < matrix.columns; i++) {
+        row.push(0);
+    }
+
+    var maxArea = 0;
+    var maxObj = {
+        r: 0,
+        c: 0,
+        w: 0,
+        h: 0
+    };
+
+    // creates row for each row and run subroutine
+    for (var _i = 0; _i < matrix.rows; _i++) {
+        for (var j = 0; j < matrix.columns; j++) {
+            if (matrix.get(_i, j) === 1) {
+                row[j] = 0;
+            } else {
+                row[j]++;
+            }
+        }
+        // row represents the matrix above this row viewed as an histogram
+        var maxAreaRect = biggestAreaInHistogram(row);
+        if (maxAreaRect.area > maxArea) {
+            maxArea = maxAreaRect.area;
+            var h = maxAreaRect.area / maxAreaRect.width;
+            maxObj = {
+                c: maxAreaRect.start,
+                r: _i - h + 1,
+                w: maxAreaRect.width,
+                h: h
+            };
+        }
+    }
+
+    return maxObj;
+}
+
+// finds the biggest area in a histogram in O(n)
+function biggestAreaInHistogram(hist) {
+    var stack = new _Stack2.default();
+
+    var maxArea = -1;
+    var maxStart = 0;
+    var maxWidth = 0;
+
+    var i = 0;
+    while (i < hist.length) {
+        var top = stack.peek();
+        if (top === null || hist[top] <= hist[i]) {
+            stack.push(i++);
+        } else {
+            top = stack.pop();
+            var lim = stack.peek() === null ? -1 : stack.peek();
+
+            var areaForTop = hist[top] * (i - lim - 1);
+
+            if (areaForTop >= maxArea) {
+                maxArea = areaForTop;
+                maxStart = lim + 1;
+                maxWidth = i - lim - 1;
+            }
+        }
+    }
+
+    while (stack.peek() !== null) {
+        var _top = stack.pop();
+        var _lim = stack.peek() === null ? -1 : stack.peek();
+
+        var _areaForTop = hist[_top] * (i - _lim - 1);
+
+        if (_areaForTop >= maxArea) {
+            maxArea = _areaForTop;
+            maxStart = _lim + 1;
+            maxWidth = i - _lim - 1;
+        }
+    }
+
+    return {
+        start: maxStart,
+        area: maxArea,
+        width: maxWidth
+    };
+}
+
+/***/ }),
+
+/***/ 6:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -219,8 +505,8 @@ var Matrix = function () {
 exports.default = Matrix;
 
 /***/ }),
-/* 6 */,
-/* 7 */
+
+/***/ 8:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -234,11 +520,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-var _SVGView2 = __webpack_require__(0);
+var _SVGView2 = __webpack_require__(1);
 
 var _SVGView3 = _interopRequireDefault(_SVGView2);
 
-var _Matrix = __webpack_require__(5);
+var _Matrix = __webpack_require__(6);
 
 var _Matrix2 = _interopRequireDefault(_Matrix);
 
@@ -406,295 +692,6 @@ var MazeMatrixView = function (_SVGView) {
 
 exports.default = MazeMatrixView;
 
-/***/ }),
-/* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var STACK = Symbol();
-
-var Stack = function () {
-    function Stack() {
-        _classCallCheck(this, Stack);
-
-        this[STACK] = [];
-    }
-
-    _createClass(Stack, [{
-        key: "pop",
-        value: function pop() {
-            return this[STACK].pop();
-        }
-    }, {
-        key: "push",
-        value: function push(element) {
-            this[STACK].push(element);
-        }
-    }, {
-        key: "peek",
-        value: function peek() {
-            var len = this[STACK].length;
-            if (len == 0) {
-                return null;
-            }
-            return this[STACK][len - 1];
-        }
-    }]);
-
-    return Stack;
-}();
-
-exports.default = Stack;
-
-/***/ }),
-/* 12 */,
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var OptionsBox = function () {
-    function OptionsBox(where) {
-        var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-
-        _classCallCheck(this, OptionsBox);
-
-        this.container = where;
-        this.options = options;
-        this.render();
-    }
-
-    _createClass(OptionsBox, [{
-        key: 'render',
-        value: function render() {
-            var _iteratorNormalCompletion = true;
-            var _didIteratorError = false;
-            var _iteratorError = undefined;
-
-            try {
-                for (var _iterator = this.options[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                    var option = _step.value;
-
-                    this.container.appendChild(this.renderControl(option));
-                }
-            } catch (err) {
-                _didIteratorError = true;
-                _iteratorError = err;
-            } finally {
-                try {
-                    if (!_iteratorNormalCompletion && _iterator.return) {
-                        _iterator.return();
-                    }
-                } finally {
-                    if (_didIteratorError) {
-                        throw _iteratorError;
-                    }
-                }
-            }
-        }
-    }, {
-        key: 'renderControl',
-        value: function renderControl(option) {
-            var type = option.type;
-
-            var element = void 0;
-            switch (type) {
-                case 'button':
-                    element = document.createElement('button');
-                    element.textContent = option.label;
-                    element.addEventListener('click', option.onClick);
-                    break;
-            }
-
-            element.className = option.className;
-
-            return element;
-        }
-    }]);
-
-    return OptionsBox;
-}();
-
-exports.default = OptionsBox;
-
-/***/ }),
-/* 14 */,
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _Matrix = __webpack_require__(5);
-
-var _Matrix2 = _interopRequireDefault(_Matrix);
-
-var _MazeMatrixView = __webpack_require__(7);
-
-var _MazeMatrixView2 = _interopRequireDefault(_MazeMatrixView);
-
-var _Stack = __webpack_require__(11);
-
-var _Stack2 = _interopRequireDefault(_Stack);
-
-var _OptionsBox = __webpack_require__(13);
-
-var _OptionsBox2 = _interopRequireDefault(_OptionsBox);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-///////////////////////////////////// INTERFACE METHODS ////////////////////////////////////
-
-var WALL = 1;
-var DEF_ROWS = 40;
-var DEF_COLS = 40;
-
-var optionsContainer = document.getElementById('options');
-var options = [_defineProperty({ type: 'button', className: '', onClick: regenerate, label: 'Regenerate' }, 'className', 'button')];
-var optionsView = new _OptionsBox2.default(optionsContainer, options);
-
-var m = new _Matrix2.default(DEF_ROWS, DEF_COLS, function () {
-    return Math.random() < 0.2 ? WALL : 0;
-});
-var view = new _MazeMatrixView2.default(document.getElementById('viz'), m, blockClicked);
-
-view.highlightRect(biggestRect(m));
-
-function regenerate() {
-    m = new _Matrix2.default(DEF_ROWS, DEF_COLS, function () {
-        return Math.random() < 0.2 ? WALL : 0;
-    });
-    view.setMatrix(m);
-    view.highlightRect(biggestRect(m));
-}
-
-function blockClicked(r, c) {
-    if (m.get(r, c) === 0) {
-        m.set(r, c, 1);
-    } else {
-        m.set(r, c, 0);
-    }
-
-    view.update();
-    view.highlightRect(biggestRect(m));
-}
-
-//////////////////////////////////////////// ALGORITHM ///////////////////////////////////////
-
-
-// creates an array for each row as if it was an histogram
-// find the largest area in the histogram with O(n) subroutine
-function biggestRect(matrix) {
-    var row = [];
-    // creates empty for start step
-    for (var i = 0; i < matrix.columns; i++) {
-        row.push(0);
-    }
-
-    var maxArea = 0;
-    var maxObj = {
-        r: 0,
-        c: 0,
-        w: 0,
-        h: 0
-    };
-
-    // creates row for each row and run subroutine
-    for (var _i = 0; _i < matrix.rows; _i++) {
-        for (var j = 0; j < matrix.columns; j++) {
-            if (matrix.get(_i, j) === 1) {
-                row[j] = 0;
-            } else {
-                row[j]++;
-            }
-        }
-        // row represents the matrix above this row viewed as an histogram
-        var maxAreaRect = biggestAreaInHistogram(row);
-        if (maxAreaRect.area > maxArea) {
-            maxArea = maxAreaRect.area;
-            var h = maxAreaRect.area / maxAreaRect.width;
-            maxObj = {
-                c: maxAreaRect.start,
-                r: _i - h + 1,
-                w: maxAreaRect.width,
-                h: h
-            };
-        }
-    }
-
-    return maxObj;
-}
-
-// finds the biggest area in a histogram in O(n)
-function biggestAreaInHistogram(hist) {
-    var stack = new _Stack2.default();
-
-    var maxArea = -1;
-    var maxStart = 0;
-    var maxWidth = 0;
-
-    var i = 0;
-    while (i < hist.length) {
-        var top = stack.peek();
-        if (top === null || hist[top] <= hist[i]) {
-            stack.push(i++);
-        } else {
-            top = stack.pop();
-            var lim = stack.peek() === null ? -1 : stack.peek();
-
-            var areaForTop = hist[top] * (i - lim - 1);
-
-            if (areaForTop >= maxArea) {
-                maxArea = areaForTop;
-                maxStart = lim + 1;
-                maxWidth = i - lim - 1;
-            }
-        }
-    }
-
-    while (stack.peek() !== null) {
-        var _top = stack.pop();
-        var _lim = stack.peek() === null ? -1 : stack.peek();
-
-        var _areaForTop = hist[_top] * (i - _lim - 1);
-
-        if (_areaForTop >= maxArea) {
-            maxArea = _areaForTop;
-            maxStart = _lim + 1;
-            maxWidth = i - _lim - 1;
-        }
-    }
-
-    return {
-        start: maxStart,
-        area: maxArea,
-        width: maxWidth
-    };
-}
-
 /***/ })
-/******/ ]);
+
+/******/ });

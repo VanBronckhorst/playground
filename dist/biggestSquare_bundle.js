@@ -6,9 +6,9 @@
 /******/ 	function __webpack_require__(moduleId) {
 /******/
 /******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
+/******/ 		if(installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
-/******/
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
@@ -63,77 +63,12 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 16);
+/******/ 	return __webpack_require__(__webpack_require__.s = 22);
 /******/ })
 /************************************************************************/
 /******/ ({
 
 /***/ 0:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var SVG = Symbol();
-
-var SVGView = function () {
-    function SVGView(domParent) {
-        _classCallCheck(this, SVGView);
-
-        var ns = 'http://www.w3.org/2000/svg';
-        this[SVG] = document.createElementNS(ns, 'svg');
-        domParent.appendChild(this[SVG]);
-        // this[SVG].setAttribute('class', 'full-SVG');
-        this.domParent = domParent;
-    }
-
-    _createClass(SVGView, [{
-        key: 'clear',
-        value: function clear() {
-            while (this.SVG.hasChildNodes()) {
-                this.SVG.removeChild(this.SVG.lastChild);
-            }
-        }
-    }, {
-        key: 'setViewBox',
-        value: function setViewBox(xmin, ymin, width, height) {
-            this.SVG.setAttribute('viewBox', xmin + ' ' + ymin + ' ' + width + ' ' + height);
-
-            var style = window.getComputedStyle(this.domParent, null);
-            var H = parseFloat(style.getPropertyValue('height'));
-            var W = parseFloat(style.getPropertyValue('width'));
-
-            if (W * height / width > H) {
-                this.SVG.setAttribute('height', H);
-                this.SVG.setAttribute('width', H * width / height);
-            } else {
-                this.SVG.setAttribute('height', W * height / width);
-                this.SVG.setAttribute('width', W);
-            }
-        }
-    }, {
-        key: 'SVG',
-        get: function get() {
-            return this[SVG];
-        }
-    }]);
-
-    return SVGView;
-}();
-
-exports.default = SVGView;
-
-/***/ }),
-
-/***/ 13:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -213,21 +148,86 @@ exports.default = OptionsBox;
 
 /***/ }),
 
-/***/ 16:
+/***/ 1:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _Matrix = __webpack_require__(5);
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var SVG = Symbol();
+
+var SVGView = function () {
+    function SVGView(domParent) {
+        _classCallCheck(this, SVGView);
+
+        var ns = 'http://www.w3.org/2000/svg';
+        this[SVG] = document.createElementNS(ns, 'svg');
+        domParent.appendChild(this[SVG]);
+        // this[SVG].setAttribute('class', 'full-SVG');
+        this.domParent = domParent;
+    }
+
+    _createClass(SVGView, [{
+        key: 'clear',
+        value: function clear() {
+            while (this.SVG.hasChildNodes()) {
+                this.SVG.removeChild(this.SVG.lastChild);
+            }
+        }
+    }, {
+        key: 'setViewBox',
+        value: function setViewBox(xmin, ymin, width, height) {
+            this.SVG.setAttribute('viewBox', xmin + ' ' + ymin + ' ' + width + ' ' + height);
+
+            var style = window.getComputedStyle(this.domParent, null);
+            var H = parseFloat(style.getPropertyValue('height'));
+            var W = parseFloat(style.getPropertyValue('width'));
+
+            if (W * height / width > H) {
+                this.SVG.setAttribute('height', H);
+                this.SVG.setAttribute('width', H * width / height);
+            } else {
+                this.SVG.setAttribute('height', W * height / width);
+                this.SVG.setAttribute('width', W);
+            }
+        }
+    }, {
+        key: 'SVG',
+        get: function get() {
+            return this[SVG];
+        }
+    }]);
+
+    return SVGView;
+}();
+
+exports.default = SVGView;
+
+/***/ }),
+
+/***/ 22:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _Matrix = __webpack_require__(6);
 
 var _Matrix2 = _interopRequireDefault(_Matrix);
 
-var _MazeMatrixView = __webpack_require__(7);
+var _MazeMatrixView = __webpack_require__(8);
 
 var _MazeMatrixView2 = _interopRequireDefault(_MazeMatrixView);
 
-var _OptionsBox = __webpack_require__(13);
+var _OptionsBox = __webpack_require__(0);
 
 var _OptionsBox2 = _interopRequireDefault(_OptionsBox);
 
@@ -353,7 +353,7 @@ function betterBiggerSquare(matrix) {
 
 /***/ }),
 
-/***/ 5:
+/***/ 6:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -438,7 +438,7 @@ exports.default = Matrix;
 
 /***/ }),
 
-/***/ 7:
+/***/ 8:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -452,11 +452,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-var _SVGView2 = __webpack_require__(0);
+var _SVGView2 = __webpack_require__(1);
 
 var _SVGView3 = _interopRequireDefault(_SVGView2);
 
-var _Matrix = __webpack_require__(5);
+var _Matrix = __webpack_require__(6);
 
 var _Matrix2 = _interopRequireDefault(_Matrix);
 
