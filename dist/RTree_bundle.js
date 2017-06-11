@@ -63,12 +63,108 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 20);
+/******/ 	return __webpack_require__(__webpack_require__.s = 22);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */,
-/* 1 */,
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var SVG = Symbol();
+
+var SVGView = function () {
+    function SVGView(domParent) {
+        _classCallCheck(this, SVGView);
+
+        var ns = 'http://www.w3.org/2000/svg';
+        this[SVG] = document.createElementNS(ns, 'svg');
+        domParent.appendChild(this[SVG]);
+        // this[SVG].setAttribute('class', 'full-SVG');
+        this.domParent = domParent;
+    }
+
+    _createClass(SVGView, [{
+        key: 'clear',
+        value: function clear() {
+            while (this.SVG.hasChildNodes()) {
+                this.SVG.removeChild(this.SVG.lastChild);
+            }
+        }
+    }, {
+        key: 'setViewBox',
+        value: function setViewBox(xmin, ymin, width, height) {
+            this.SVG.setAttribute('viewBox', xmin + ' ' + ymin + ' ' + width + ' ' + height);
+
+            var style = window.getComputedStyle(this.domParent, null);
+            var H = parseFloat(style.getPropertyValue('height'));
+            var W = parseFloat(style.getPropertyValue('width'));
+
+            if (W * height / width > H) {
+                this.SVG.setAttribute('height', H);
+                this.SVG.setAttribute('width', H * width / height);
+            } else {
+                this.SVG.setAttribute('height', W * height / width);
+                this.SVG.setAttribute('width', W);
+            }
+        }
+    }, {
+        key: 'appendRect',
+        value: function appendRect(x, y, w, h, attributes) {
+            var ns = 'http://www.w3.org/2000/svg';
+
+            var rect = document.createElementNS(ns, 'rect');
+            rect.setAttribute('x', x);
+            rect.setAttribute('y', y);
+            rect.setAttribute('width', w);
+            rect.setAttribute('height', h);
+
+            for (var k in attributes) {
+                rect.setAttribute(k, attributes[k]);
+            }
+
+            this.SVG.appendChild(rect);
+        }
+    }, {
+        key: 'appendCircle',
+        value: function appendCircle(x, y, r, attributes) {
+            var ns = 'http://www.w3.org/2000/svg';
+
+            var circle = document.createElementNS(ns, 'circle');
+            circle.setAttribute('cx', x);
+            circle.setAttribute('cy', y);
+            circle.setAttribute('r', r);
+
+            for (var k in attributes) {
+                circle.setAttribute(k, attributes[k]);
+            }
+
+            this.SVG.appendChild(circle);
+        }
+    }, {
+        key: 'SVG',
+        get: function get() {
+            return this[SVG];
+        }
+    }]);
+
+    return SVGView;
+}();
+
+exports.default = SVGView;
+
+/***/ }),
 /* 2 */,
 /* 3 */,
 /* 4 */,
@@ -128,6 +224,11 @@ var BoundingBox = function () {
             return (newMaxX - newMinX) * (newMaxY - newMinY) - this.area;
         }
     }, {
+        key: "intersects",
+        value: function intersects(other) {
+            return other.minX <= this.maxX && other.minY <= this.maxY && other.maxX >= this.minX && other.maxY >= this.minY;
+        }
+    }, {
         key: "minX",
         get: function get() {
             return this[MIN_X];
@@ -163,6 +264,16 @@ var BoundingBox = function () {
         key: "area",
         get: function get() {
             return (this.maxX - this.minX) * (this.maxY - this.minY);
+        }
+    }, {
+        key: "height",
+        get: function get() {
+            return this.maxY - this.minY;
+        }
+    }, {
+        key: "width",
+        get: function get() {
+            return this.maxX - this.minX;
         }
     }]);
 
@@ -270,8 +381,7 @@ var Node = function () {
 exports.default = Node;
 
 /***/ }),
-/* 14 */,
-/* 15 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -283,11 +393,133 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Leaf = __webpack_require__(17);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var HEAP = Symbol();
+var COMPARE = Symbol();
+
+// Simple Priority Queue implemented with a array-stored heap
+
+var PriorityQueue = function () {
+    function PriorityQueue(array, comparer) {
+        _classCallCheck(this, PriorityQueue);
+
+        array = array || [];
+        this[COMPARE] = comparer || function (a, b) {
+            return a < b ? -1 : a > b ? 1 : 0;
+        };
+
+        this[HEAP] = [];
+
+        for (var i = 0; i < array.length; i++) {
+            this.push(array[i]);
+        }
+    }
+
+    _createClass(PriorityQueue, [{
+        key: "push",
+        value: function push(item) {
+            this[HEAP].push(item);
+            this._climbUp(this[HEAP].length - 1);
+        }
+    }, {
+        key: "peek",
+        value: function peek() {
+            return this[HEAP][0];
+        }
+    }, {
+        key: "pop",
+        value: function pop() {
+            var item = this.peek();
+
+            if (this[HEAP].length !== 0) {
+                this._removeRoot();
+            }
+
+            return item;
+        }
+    }, {
+        key: "_removeRoot",
+        value: function _removeRoot() {
+            var d = this[HEAP];
+            var last = this[HEAP].pop();
+            this[HEAP][0] = last;
+            var compare = this[COMPARE];
+
+            var pos = firstChild(0);
+
+            while (pos < d.length) {
+                var bestChild = pos;
+
+                if (pos + 1 < d.length && compare(d[pos + 1], d[pos]) < 0) {
+                    bestChild = pos + 1;
+                }
+
+                if (compare(d[bestChild], last) < 0) {
+                    d[parent(bestChild)] = d[bestChild];
+                    d[bestChild] = last;
+                    pos = firstChild(bestChild);
+                } else {
+                    break;
+                }
+            }
+        }
+    }, {
+        key: "_climbUp",
+        value: function _climbUp(idx) {
+            var d = this[HEAP];
+            var item = d[idx];
+            var compare = this[COMPARE];
+
+            while (idx > 0) {
+                var par = parent(idx);
+
+                if (compare(item, d[par]) < 0) {
+                    // need to swap
+                    d[idx] = d[par];
+                    idx = par;
+                } else {
+                    break;
+                }
+            }
+
+            this[HEAP][idx] = item;
+        }
+    }]);
+
+    return PriorityQueue;
+}();
+
+exports.default = PriorityQueue;
+
+
+function parent(i) {
+    return i - 1 >> 1;
+}
+
+function firstChild(i) {
+    return (i << 1) + 1;
+}
+
+/***/ }),
+/* 15 */,
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Leaf = __webpack_require__(19);
 
 var _Leaf2 = _interopRequireDefault(_Leaf);
 
-var _NonLeaf = __webpack_require__(18);
+var _NonLeaf = __webpack_require__(20);
 
 var _NonLeaf2 = _interopRequireDefault(_NonLeaf);
 
@@ -314,6 +546,38 @@ var RTree = function () {
     }
 
     _createClass(RTree, [{
+        key: '_search',
+        value: function _search(item, toBBox) {
+            toBBox = toBBox || function (d) {
+                return new _BoundingBox2.default(d.minX, d.minY, d.maxX, d.maxY);
+            };
+            var BBox = toBBox(item);
+
+            var toExplore = [this[ROOT]];
+            var res = [];
+
+            if (!this[ROOT].BBox.intersects(BBox)) {
+                return res;
+            }
+            var curr = toExplore.pop();
+            while (curr) {
+
+                for (var j = 0; j < curr.children.length; j++) {
+                    var next = curr.children[j];
+                    if (next.BBox.intersects(BBox)) {
+                        if (curr.isLeaf) {
+                            res.push(next);
+                        } else {
+                            toExplore.push(next);
+                        }
+                    }
+                }
+                curr = toExplore.pop();
+            }
+
+            return res;
+        }
+    }, {
         key: '_insert',
         value: function _insert(item, toBBox) {
             toBBox = toBBox || function (d) {
@@ -390,6 +654,9 @@ var RTree = function () {
                 b = new _NonLeaf2.default([]);
             }
 
+            a.height = node.height;
+            b.height = node.height;
+
             var children = node.children;
 
             var maxSep = -Infinity;
@@ -399,7 +666,8 @@ var RTree = function () {
                 var c1 = children[i];
                 for (var j = i + 1; j < children.length; j++) {
                     var c2 = children[j];
-                    var sep = node.BBox.area - c1.BBox.area - c2.BBox.area;
+                    var enclosing = c1.BBox.area + c1.BBox.enlargedArea(c2.BBox);
+                    var sep = enclosing - c1.BBox.area - c2.BBox.area;
                     if (sep > maxSep) {
                         maxSep = sep;
                         maxSepTupleIndexes = [i, j];
@@ -458,9 +726,6 @@ var RTree = function () {
                 }
             }
 
-            if (a.fill < this[m] || b.fill < this[m]) {
-                console.log("ERROR", a, b, toDistribute, children);
-            }
             return [a, b];
         }
     }, {
@@ -475,6 +740,16 @@ var RTree = function () {
             }
 
             return res;
+        }
+    }, {
+        key: 'boundingBox',
+        get: function get() {
+            return this[ROOT].BBox;
+        }
+    }, {
+        key: '_root',
+        get: function get() {
+            return this[ROOT];
         }
     }]);
 
@@ -509,8 +784,124 @@ function leastIncreasing(nodes, toAdd) {
 exports.default = RTree;
 
 /***/ }),
-/* 16 */,
-/* 17 */
+/* 17 */,
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+var _SVGView2 = __webpack_require__(1);
+
+var _SVGView3 = _interopRequireDefault(_SVGView2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PADDING = 5;
+var COLORS = ['#ffffcc', '#fed976', '#fd8d3c', '#fc4e2a', '#e31a1c', '#bd0026', '#800026'];
+var STROKE_WIDTH = 5;
+var ITEM_RAD = 3;
+
+var RTreeView = function (_SVGView) {
+    _inherits(RTreeView, _SVGView);
+
+    function RTreeView(domParent, tree, drawItems) {
+        _classCallCheck(this, RTreeView);
+
+        var _this = _possibleConstructorReturn(this, (RTreeView.__proto__ || Object.getPrototypeOf(RTreeView)).call(this, domParent));
+
+        _this.drawItems = drawItems;
+        _this.tree = tree;
+        _this.drawTree();
+        return _this;
+    }
+
+    _createClass(RTreeView, [{
+        key: 'drawTree',
+        value: function drawTree() {
+            var t = this.tree;
+
+            var BBox = t.boundingBox;
+
+            _get(RTreeView.prototype.__proto__ || Object.getPrototypeOf(RTreeView.prototype), 'setViewBox', this).call(this, BBox.minX - PADDING, BBox.minY - PADDING, BBox.width + 2 * PADDING, BBox.height + 2 * PADDING);
+
+            var root = t._root;
+
+            var toDraw = [];
+            var toExplore = [root];
+            var curr = toExplore.pop();
+
+            while (curr) {
+                toDraw.push(curr);
+                if (!curr.isLeaf) {
+                    for (var i = 0; i < curr.children.length; i++) {
+                        toExplore.push(curr.children[i]);
+                    }
+                }
+
+                curr = toExplore.splice(0, 1)[0];
+            }
+
+            for (var _i = toDraw.length - 1; _i >= 0; _i--) {
+                this.drawNode(toDraw[_i]);
+            }
+        }
+    }, {
+        key: 'drawNode',
+        value: function drawNode(node) {
+            var box = node.BBox;
+            var height = node.height;
+
+            var attributes = {
+                'stroke-width': height,
+                fill: 'transparent',
+                stroke: this.getBoxColor(height)
+            };
+
+            if (this.drawItems) {
+                this._drawItems(node.children);
+            }
+
+            this.appendRect(box.minX, box.minY, box.width, box.height, attributes);
+        }
+    }, {
+        key: '_drawItems',
+        value: function _drawItems(items) {
+            for (var i = 0; i < items.length; i++) {
+                var item = items[i];
+                if (item.type === "point") {
+                    this.appendCircle(item.minX, item.minY, ITEM_RAD, { fill: 'gray' });
+                }
+            }
+        }
+    }, {
+        key: 'getBoxColor',
+        value: function getBoxColor(lvl) {
+            return COLORS[lvl];
+        }
+    }]);
+
+    return RTreeView;
+}(_SVGView3.default);
+
+exports.default = RTreeView;
+
+/***/ }),
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -556,7 +947,7 @@ var Leaf = function (_RTreeNode) {
 exports.default = Leaf;
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -602,39 +993,40 @@ var NonLeaf = function (_RTreeNode) {
 exports.default = NonLeaf;
 
 /***/ }),
-/* 19 */,
-/* 20 */
+/* 21 */,
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _RTree = __webpack_require__(15);
+var _RTree = __webpack_require__(16);
 
 var _RTree2 = _interopRequireDefault(_RTree);
+
+var _RTreeView = __webpack_require__(18);
+
+var _RTreeView2 = _interopRequireDefault(_RTreeView);
+
+var _PriorityQueue = __webpack_require__(14);
+
+var _PriorityQueue2 = _interopRequireDefault(_PriorityQueue);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var tree = new _RTree2.default();
 
-for (var i = 0; i < 25; i++) {
-    var minX = Math.random() * 10;
-    var minY = Math.random() * 10;
-    var maxX = Math.random() * 10 + minX;
-    var maxY = Math.random() * 10 + minY;
+for (var i = 0; i < 100; i++) {
+    var minX = Math.random() * 1000;
+    var minY = Math.random() * 1000;
+    var maxX = minX;
+    var maxY = minY;
 
-    tree._insert({ minX: minX, minY: minY, maxX: maxX, maxY: maxY, id: i });
+    tree._insert({ minX: minX, minY: minY, maxX: maxX, maxY: maxY, id: i, type: 'point' });
 }
 
-window.insertObj = function () {
-    var minX = Math.random() * 10;
-    var minY = Math.random() * 10;
-    var maxX = Math.random() * 10 + minX;
-    var maxY = Math.random() * 10 + minY;
-
-    window.tree._insert({ minX: minX, minY: minY, maxX: maxX, maxY: maxY, id: Math.random() });
-};
-window.tree = new _RTree2.default();
+console.log(tree._search({ minX: 5, minY: 5, maxX: 6, maxY: 6 }));
+var view = new _RTreeView2.default(document.getElementById('viz'), tree, true);
 
 console.log(tree);
 

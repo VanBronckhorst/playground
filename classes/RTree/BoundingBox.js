@@ -29,6 +29,13 @@ class BoundingBox {
         return (newMaxX - newMinX) * (newMaxY - newMinY) - this.area;
     }
 
+    intersects(other) {
+        return other.minX <= this.maxX &&
+            other.minY <= this.maxY &&
+            other.maxX >= this.minX &&
+            other.maxY >= this.minY;
+    }
+
     get minX() {
         return this[MIN_X];
     }
@@ -63,6 +70,14 @@ class BoundingBox {
 
     get area() {
         return (this.maxX - this.minX) * (this.maxY - this.minY);
+    }
+
+    get height() {
+        return this.maxY - this.minY;
+    }
+
+    get width() {
+        return this.maxX - this.minX;
     }
 
 }

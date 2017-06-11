@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 24);
+/******/ 	return __webpack_require__(__webpack_require__.s = 26);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -196,6 +196,39 @@ var SVGView = function () {
                 this.SVG.setAttribute('height', W * height / width);
                 this.SVG.setAttribute('width', W);
             }
+        }
+    }, {
+        key: 'appendRect',
+        value: function appendRect(x, y, w, h, attributes) {
+            var ns = 'http://www.w3.org/2000/svg';
+
+            var rect = document.createElementNS(ns, 'rect');
+            rect.setAttribute('x', x);
+            rect.setAttribute('y', y);
+            rect.setAttribute('width', w);
+            rect.setAttribute('height', h);
+
+            for (var k in attributes) {
+                rect.setAttribute(k, attributes[k]);
+            }
+
+            this.SVG.appendChild(rect);
+        }
+    }, {
+        key: 'appendCircle',
+        value: function appendCircle(x, y, r, attributes) {
+            var ns = 'http://www.w3.org/2000/svg';
+
+            var circle = document.createElementNS(ns, 'circle');
+            circle.setAttribute('cx', x);
+            circle.setAttribute('cy', y);
+            circle.setAttribute('r', r);
+
+            for (var k in attributes) {
+                circle.setAttribute(k, attributes[k]);
+            }
+
+            this.SVG.appendChild(circle);
         }
     }, {
         key: 'SVG',
@@ -682,7 +715,8 @@ exports.default = BSTree;
 /* 13 */,
 /* 14 */,
 /* 15 */,
-/* 16 */
+/* 16 */,
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -698,7 +732,7 @@ var _BSTree2 = __webpack_require__(10);
 
 var _BSTree3 = _interopRequireDefault(_BSTree2);
 
-var _AVLNode = __webpack_require__(19);
+var _AVLNode = __webpack_require__(21);
 
 var _AVLNode2 = _interopRequireDefault(_AVLNode);
 
@@ -737,9 +771,10 @@ var AVLTree = function (_BSTree) {
 exports.default = AVLTree;
 
 /***/ }),
-/* 17 */,
 /* 18 */,
-/* 19 */
+/* 19 */,
+/* 20 */,
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -854,17 +889,17 @@ var AVLNode = function (_BSTNode) {
 exports.default = AVLNode;
 
 /***/ }),
-/* 20 */,
-/* 21 */,
 /* 22 */,
 /* 23 */,
-/* 24 */
+/* 24 */,
+/* 25 */,
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _AVLTree = __webpack_require__(16);
+var _AVLTree = __webpack_require__(17);
 
 var _AVLTree2 = _interopRequireDefault(_AVLTree);
 

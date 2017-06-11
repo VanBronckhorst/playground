@@ -1,25 +1,21 @@
 import RTree from '../classes/Rtree/RTree.js';
+import RTreeView from '../views/RTreeView';
+import PriorityQueue from '../classes/PriorityQueue/PriorityQueue.js';
 
 let tree = new RTree();
 
-for (let i = 0; i < 25; i++) {
-    let minX = Math.random() * 10;
-    let minY = Math.random() * 10;
-    let maxX = Math.random() * 10 + minX;
-    let maxY = Math.random() * 10 + minY;
+for (let i = 0; i < 100; i++) {
+    let minX = Math.random() * 1000;
+    let minY = Math.random() * 1000;
+    let maxX = minX;
+    let maxY = minY;
 
-    tree._insert({minX, minY, maxX, maxY, id: i});
+    tree._insert({minX, minY, maxX, maxY, id: i, type: 'point'});
 }
 
-window.insertObj = () => {
-    let minX = Math.random() * 10;
-    let minY = Math.random() * 10;
-    let maxX = Math.random() * 10 + minX;
-    let maxY = Math.random() * 10 + minY;
+console.log(tree._search({minX:5, minY:5, maxX: 6, maxY:6}));
+let view = new RTreeView(document.getElementById('viz'), tree, true);
 
-    window.tree._insert({minX, minY, maxX, maxY, id: Math.random()});
-}
-window.tree = new RTree();
 
 
 console.log(tree);

@@ -63,11 +63,12 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 26);
+/******/ 	return __webpack_require__(__webpack_require__.s = 28);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -146,7 +147,8 @@ var OptionsBox = function () {
 exports.default = OptionsBox;
 
 /***/ }),
-/* 1 */
+
+/***/ 1:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -198,6 +200,39 @@ var SVGView = function () {
             }
         }
     }, {
+        key: 'appendRect',
+        value: function appendRect(x, y, w, h, attributes) {
+            var ns = 'http://www.w3.org/2000/svg';
+
+            var rect = document.createElementNS(ns, 'rect');
+            rect.setAttribute('x', x);
+            rect.setAttribute('y', y);
+            rect.setAttribute('width', w);
+            rect.setAttribute('height', h);
+
+            for (var k in attributes) {
+                rect.setAttribute(k, attributes[k]);
+            }
+
+            this.SVG.appendChild(rect);
+        }
+    }, {
+        key: 'appendCircle',
+        value: function appendCircle(x, y, r, attributes) {
+            var ns = 'http://www.w3.org/2000/svg';
+
+            var circle = document.createElementNS(ns, 'circle');
+            circle.setAttribute('cx', x);
+            circle.setAttribute('cy', y);
+            circle.setAttribute('r', r);
+
+            for (var k in attributes) {
+                circle.setAttribute(k, attributes[k]);
+            }
+
+            this.SVG.appendChild(circle);
+        }
+    }, {
         key: 'SVG',
         get: function get() {
             return this[SVG];
@@ -210,7 +245,100 @@ var SVGView = function () {
 exports.default = SVGView;
 
 /***/ }),
-/* 2 */
+
+/***/ 11:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _TreeNode2 = __webpack_require__(5);
+
+var _TreeNode3 = _interopRequireDefault(_TreeNode2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var HEAP_KEY = Symbol();
+
+var CartesianNode = function (_TreeNode) {
+    _inherits(CartesianNode, _TreeNode);
+
+    function CartesianNode(key, heapKey) {
+        _classCallCheck(this, CartesianNode);
+
+        var _this = _possibleConstructorReturn(this, (CartesianNode.__proto__ || Object.getPrototypeOf(CartesianNode)).call(this, key));
+
+        _this.data[HEAP_KEY] = heapKey;
+        _this.parent = null;
+        return _this;
+    }
+
+    _createClass(CartesianNode, [{
+        key: 'insert',
+        value: function insert(key, heapKey) {
+            if (key === this.key) {
+                return;
+            }
+
+            if (key > this.key) {
+                if (this.right !== null) {
+                    this.right.insert(key, heapKey);
+                } else {
+                    this.right = new CartesianNode(key, heapKey);
+                }
+                if (this.right.heapKey > this.heapKey) {
+                    this.rotateLeft();
+                }
+                return;
+            }
+
+            if (key < this.key) {
+                if (this.left !== null) {
+                    this.left.insert(key, heapKey);
+                } else {
+                    this.left = new CartesianNode(key, heapKey);
+                }
+                if (this.left.heapKey > this.heapKey) {
+                    this.rotateRight();
+                }
+                return;
+            }
+        }
+    }, {
+        key: 'heapKey',
+        get: function get() {
+            return this.data[HEAP_KEY];
+        },
+        set: function set(k) {
+            this.data[HEAP_KEY] = k;
+        }
+    }, {
+        key: 'content',
+        get: function get() {
+            return this.key + '|' + this.heapKey;
+        }
+    }]);
+
+    return CartesianNode;
+}(_TreeNode3.default);
+
+exports.default = CartesianNode;
+
+/***/ }),
+
+/***/ 2:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -355,7 +483,49 @@ var TreeView = function (_SVGView) {
 exports.default = TreeView;
 
 /***/ }),
-/* 3 */
+
+/***/ 28:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _CartesianTree = __webpack_require__(7);
+
+var _CartesianTree2 = _interopRequireDefault(_CartesianTree);
+
+var _TreeView = __webpack_require__(2);
+
+var _TreeView2 = _interopRequireDefault(_TreeView);
+
+var _OptionsBox = __webpack_require__(0);
+
+var _OptionsBox2 = _interopRequireDefault(_OptionsBox);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// Interface Bindings
+var optionsContainer = document.getElementById('options');
+var options = [{ type: 'button', className: 'button', onClick: addValue, label: 'Add Value' }];
+var optionsView = new _OptionsBox2.default(optionsContainer, options);
+
+var tree = new _CartesianTree2.default();
+for (var i = 0; i < 30; i++) {
+    var val = Math.round(Math.random() * 100);
+    tree.insert(val, Math.round(Math.random() * 1000));
+}
+console.log(tree);
+var view = new _TreeView2.default(document.getElementById('viz'), tree);
+
+function addValue() {
+    var val = Math.round(Math.random() * 100);
+    tree.insert(val, Math.round(Math.random() * 1000));
+    view.update();
+}
+
+/***/ }),
+
+/***/ 3:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -400,7 +570,8 @@ var Node = function () {
 exports.default = Node;
 
 /***/ }),
-/* 4 */
+
+/***/ 4:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -447,7 +618,8 @@ var Tree = function () {
 exports.default = Tree;
 
 /***/ }),
-/* 5 */
+
+/***/ 5:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -553,8 +725,8 @@ var TreeNode = function (_Node) {
 exports.default = TreeNode;
 
 /***/ }),
-/* 6 */,
-/* 7 */
+
+/***/ 7:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -608,153 +780,6 @@ var CartesianTree = function (_Tree) {
 
 exports.default = CartesianTree;
 
-/***/ }),
-/* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _TreeNode2 = __webpack_require__(5);
-
-var _TreeNode3 = _interopRequireDefault(_TreeNode2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var HEAP_KEY = Symbol();
-
-var CartesianNode = function (_TreeNode) {
-    _inherits(CartesianNode, _TreeNode);
-
-    function CartesianNode(key, heapKey) {
-        _classCallCheck(this, CartesianNode);
-
-        var _this = _possibleConstructorReturn(this, (CartesianNode.__proto__ || Object.getPrototypeOf(CartesianNode)).call(this, key));
-
-        _this.data[HEAP_KEY] = heapKey;
-        _this.parent = null;
-        return _this;
-    }
-
-    _createClass(CartesianNode, [{
-        key: 'insert',
-        value: function insert(key, heapKey) {
-            if (key === this.key) {
-                return;
-            }
-
-            if (key > this.key) {
-                if (this.right !== null) {
-                    this.right.insert(key, heapKey);
-                } else {
-                    this.right = new CartesianNode(key, heapKey);
-                }
-                if (this.right.heapKey > this.heapKey) {
-                    this.rotateLeft();
-                }
-                return;
-            }
-
-            if (key < this.key) {
-                if (this.left !== null) {
-                    this.left.insert(key, heapKey);
-                } else {
-                    this.left = new CartesianNode(key, heapKey);
-                }
-                if (this.left.heapKey > this.heapKey) {
-                    this.rotateRight();
-                }
-                return;
-            }
-        }
-    }, {
-        key: 'heapKey',
-        get: function get() {
-            return this.data[HEAP_KEY];
-        },
-        set: function set(k) {
-            this.data[HEAP_KEY] = k;
-        }
-    }, {
-        key: 'content',
-        get: function get() {
-            return this.key + '|' + this.heapKey;
-        }
-    }]);
-
-    return CartesianNode;
-}(_TreeNode3.default);
-
-exports.default = CartesianNode;
-
-/***/ }),
-/* 12 */,
-/* 13 */,
-/* 14 */,
-/* 15 */,
-/* 16 */,
-/* 17 */,
-/* 18 */,
-/* 19 */,
-/* 20 */,
-/* 21 */,
-/* 22 */,
-/* 23 */,
-/* 24 */,
-/* 25 */,
-/* 26 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _CartesianTree = __webpack_require__(7);
-
-var _CartesianTree2 = _interopRequireDefault(_CartesianTree);
-
-var _TreeView = __webpack_require__(2);
-
-var _TreeView2 = _interopRequireDefault(_TreeView);
-
-var _OptionsBox = __webpack_require__(0);
-
-var _OptionsBox2 = _interopRequireDefault(_OptionsBox);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// Interface Bindings
-var optionsContainer = document.getElementById('options');
-var options = [{ type: 'button', className: 'button', onClick: addValue, label: 'Add Value' }];
-var optionsView = new _OptionsBox2.default(optionsContainer, options);
-
-var tree = new _CartesianTree2.default();
-for (var i = 0; i < 30; i++) {
-    var val = Math.round(Math.random() * 100);
-    tree.insert(val, Math.round(Math.random() * 1000));
-}
-console.log(tree);
-var view = new _TreeView2.default(document.getElementById('viz'), tree);
-
-function addValue() {
-    var val = Math.round(Math.random() * 100);
-    tree.insert(val, Math.round(Math.random() * 1000));
-    view.update();
-}
-
 /***/ })
-/******/ ]);
+
+/******/ });

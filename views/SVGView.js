@@ -35,4 +35,37 @@ export default class SVGView{
             this.SVG.setAttribute('width', W);
         }
     }
+
+    appendRect(x, y, w, h, attributes) {
+        const ns = 'http://www.w3.org/2000/svg';
+
+        let rect = document.createElementNS(ns, 'rect');
+        rect.setAttribute('x', x);
+        rect.setAttribute('y', y);
+        rect.setAttribute('width', w);
+        rect.setAttribute('height', h);
+        
+        for (let k in attributes) {
+            rect.setAttribute(k, attributes[k]);
+        }
+
+        this.SVG.appendChild(rect);
+
+    }
+
+    appendCircle(x, y, r, attributes) {
+        const ns = 'http://www.w3.org/2000/svg';
+
+        let circle = document.createElementNS(ns, 'circle');
+        circle.setAttribute('cx', x);
+        circle.setAttribute('cy', y);
+        circle.setAttribute('r', r);
+        
+        for (let k in attributes) {
+            circle.setAttribute(k, attributes[k]);
+        }
+
+        this.SVG.appendChild(circle);
+
+    }
 }

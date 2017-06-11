@@ -15,10 +15,40 @@ class RTree {
         this[m] = 4;
     }
 
+    _search(item, toBBox) {
+        toBBox = toBBox || ((d) => new BoundingBox(d.minX, d.minY, d.maxX, d.maxY));
+        const BBox = toBBox(item);
+
+        let toExplore = [this[ROOT]];
+        let res = [];
+
+        if (!this[ROOT].BBox.intersects(BBox)) {
+            return res;
+        }
+        let curr = toExplore.pop();
+        while (curr) {
+            
+            for (let j = 0; j < curr.children.length; j++) {
+                let next = curr.children[j];
+                if (next.BBox.intersects(BBox)) {
+                    if (curr.isLeaf) {
+                        res.push(next);
+                    } else {
+                        toExplore.push(next);
+                    }
+                }
+            }
+            curr = toExplore.pop();
+        }
+
+        return res;
+    }
+
     _insert(item, toBBox) {
         toBBox = toBBox || ((d) => new BoundingBox(d.minX, d.minY, d.maxX, d.maxY));
         const BBox = toBBox(item);
         item.BBox = BBox;
+        item.isItem = true;
 
         const insertionWalk = this._insertWalk(BBox);
         const insertLeaf = insertionWalk[insertionWalk.length - 1];
@@ -87,6 +117,9 @@ class RTree {
             b = new NonLeaf([]);
         }
 
+        a.height = node.height;
+        b.height = node.height;
+
         let children = node.children;
 
 
@@ -97,7 +130,8 @@ class RTree {
             let c1 = children[i];
             for (let j = i + 1; j < children.length; j++) {
                 let c2 = children[j];
-                let sep = node.BBox.area - c1.BBox.area - c2.BBox.area;
+                let enclosing = c1.BBox.area + c1.BBox.enlargedArea(c2.BBox);
+                let sep = enclosing - c1.BBox.area - c2.BBox.area;
                 if (sep > maxSep) {
                     maxSep = sep;
                     maxSepTupleIndexes = [i, j];
@@ -169,6 +203,14 @@ class RTree {
         }
 
         return res;
+    }
+
+    get boundingBox() {
+        return this[ROOT].BBox;
+    }
+
+    get _root() {
+        return this[ROOT];
     }
 }
 
