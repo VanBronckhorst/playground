@@ -14,10 +14,13 @@ for (let i = 0; i < 1000; i++) {
 }
 
 console.log(tree._search({minX:5, minY:5, maxX: 6, maxY:6}));
-let closest = tree.knn(10, 10, 3);
+
 let view = new RTreeView(document.getElementById('viz'), tree, true);
 
-view.highlightItems(closest);
+view.setOnClick((x,y) => {
+    let closest = tree.knn(x, y, 3);
+    view.highlightItems(closest);
+})
 
 
 console.log(tree);

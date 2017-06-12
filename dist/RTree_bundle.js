@@ -153,6 +153,24 @@ var SVGView = function () {
             this.SVG.appendChild(circle);
         }
     }, {
+        key: 'setOnClick',
+        value: function setOnClick(fun) {
+            var _this = this;
+
+            var _pt = this.SVG.createSVGPoint();
+
+            var clickFun = function clickFun(evt) {
+                _pt.x = evt.clientX;
+                _pt.y = evt.clientY;
+
+                // The cursor point, translated into svg coordinates
+                var cursorpt = _pt.matrixTransform(_this.SVG.getScreenCTM().inverse());
+                fun(cursorpt.x, cursorpt.y);
+            };
+
+            this.SVG.addEventListener('click', clickFun);
+        }
+    }, {
         key: 'SVG',
         get: function get() {
             return this[SVG];
@@ -1115,10 +1133,13 @@ for (var i = 0; i < 1000; i++) {
 }
 
 console.log(tree._search({ minX: 5, minY: 5, maxX: 6, maxY: 6 }));
-var closest = tree.knn(10, 10, 3);
+
 var view = new _RTreeView2.default(document.getElementById('viz'), tree, true);
 
-view.highlightItems(closest);
+view.setOnClick(function (x, y) {
+    var closest = tree.knn(x, y, 3);
+    view.highlightItems(closest);
+});
 
 console.log(tree);
 

@@ -231,6 +231,24 @@ var SVGView = function () {
             this.SVG.appendChild(circle);
         }
     }, {
+        key: 'setOnClick',
+        value: function setOnClick(fun) {
+            var _this = this;
+
+            var _pt = this.SVG.createSVGPoint();
+
+            var clickFun = function clickFun(evt) {
+                _pt.x = evt.clientX;
+                _pt.y = evt.clientY;
+
+                // The cursor point, translated into svg coordinates
+                var cursorpt = _pt.matrixTransform(_this.SVG.getScreenCTM().inverse());
+                fun(cursorpt.x, cursorpt.y);
+            };
+
+            this.SVG.addEventListener('click', clickFun);
+        }
+    }, {
         key: 'SVG',
         get: function get() {
             return this[SVG];

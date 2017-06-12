@@ -66,6 +66,20 @@ export default class SVGView{
         }
 
         this.SVG.appendChild(circle);
+    }
 
+    setOnClick(fun) {
+        let _pt = this.SVG.createSVGPoint();
+
+        let clickFun = (evt) => {
+            _pt.x = evt.clientX;
+            _pt.y = evt.clientY;
+
+            // The cursor point, translated into svg coordinates
+            var cursorpt =  _pt.matrixTransform(this.SVG.getScreenCTM().inverse());
+            fun(cursorpt.x, cursorpt.y);
+        }
+
+        this.SVG.addEventListener('click', clickFun);
     }
 }
