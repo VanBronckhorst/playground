@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 24);
+/******/ 	return __webpack_require__(__webpack_require__.s = 26);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -233,6 +233,23 @@ var SVGView = function () {
             this.SVG.appendChild(circle);
         }
     }, {
+        key: 'appendLine',
+        value: function appendLine(x1, y1, x2, y2, attributes) {
+            var ns = 'http://www.w3.org/2000/svg';
+
+            var line = document.createElementNS(ns, 'line');
+            line.setAttribute('x1', x1);
+            line.setAttribute('x2', x2);
+            line.setAttribute('y1', y1);
+            line.setAttribute('y2', y2);
+
+            for (var k in attributes) {
+                line.setAttribute(k, attributes[k]);
+            }
+
+            this.SVG.appendChild(line);
+        }
+    }, {
         key: 'setOnClick',
         value: function setOnClick(fun) {
             var _this = this;
@@ -264,7 +281,7 @@ exports.default = SVGView;
 
 /***/ }),
 
-/***/ 24:
+/***/ 26:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

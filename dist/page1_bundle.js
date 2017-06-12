@@ -63,11 +63,12 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 25);
+/******/ 	return __webpack_require__(__webpack_require__.s = 28);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -146,7 +147,8 @@ var OptionsBox = function () {
 exports.default = OptionsBox;
 
 /***/ }),
-/* 1 */
+
+/***/ 1:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -231,6 +233,23 @@ var SVGView = function () {
             this.SVG.appendChild(circle);
         }
     }, {
+        key: 'appendLine',
+        value: function appendLine(x1, y1, x2, y2, attributes) {
+            var ns = 'http://www.w3.org/2000/svg';
+
+            var line = document.createElementNS(ns, 'line');
+            line.setAttribute('x1', x1);
+            line.setAttribute('x2', x2);
+            line.setAttribute('y1', y1);
+            line.setAttribute('y2', y2);
+
+            for (var k in attributes) {
+                line.setAttribute(k, attributes[k]);
+            }
+
+            this.SVG.appendChild(line);
+        }
+    }, {
         key: 'setOnClick',
         value: function setOnClick(fun) {
             var _this = this;
@@ -261,7 +280,64 @@ var SVGView = function () {
 exports.default = SVGView;
 
 /***/ }),
-/* 2 */
+
+/***/ 10:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Tree2 = __webpack_require__(4);
+
+var _Tree3 = _interopRequireDefault(_Tree2);
+
+var _BSTNode = __webpack_require__(9);
+
+var _BSTNode2 = _interopRequireDefault(_BSTNode);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var BSTree = function (_Tree) {
+    _inherits(BSTree, _Tree);
+
+    function BSTree() {
+        _classCallCheck(this, BSTree);
+
+        return _possibleConstructorReturn(this, (BSTree.__proto__ || Object.getPrototypeOf(BSTree)).call(this, null));
+    }
+
+    _createClass(BSTree, [{
+        key: 'insert',
+        value: function insert(key) {
+            if (this.root === null) {
+                this.root = new _BSTNode2.default(key);
+                return;
+            }
+
+            return this.root.insert(key);
+        }
+    }]);
+
+    return BSTree;
+}(_Tree3.default);
+
+exports.default = BSTree;
+
+/***/ }),
+
+/***/ 2:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -406,7 +482,48 @@ var TreeView = function (_SVGView) {
 exports.default = TreeView;
 
 /***/ }),
-/* 3 */
+
+/***/ 28:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _BSTree = __webpack_require__(10);
+
+var _BSTree2 = _interopRequireDefault(_BSTree);
+
+var _TreeView = __webpack_require__(2);
+
+var _TreeView2 = _interopRequireDefault(_TreeView);
+
+var _OptionsBox = __webpack_require__(0);
+
+var _OptionsBox2 = _interopRequireDefault(_OptionsBox);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// Interface Bindings
+var optionsContainer = document.getElementById('options');
+var options = [{ type: 'button', className: 'button', onClick: addValue, label: 'Add Value' }];
+var optionsView = new _OptionsBox2.default(optionsContainer, options);
+
+var tree = new _BSTree2.default();
+for (var i = 0; i < 5; i++) {
+    tree.insert(Math.round(Math.random() * 100));
+}
+
+function addValue() {
+    tree.insert(Math.round(Math.random() * 100));
+    view.update();
+}
+
+console.log(tree);
+var view = new _TreeView2.default(document.getElementById('viz'), tree);
+
+/***/ }),
+
+/***/ 3:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -451,7 +568,8 @@ var Node = function () {
 exports.default = Node;
 
 /***/ }),
-/* 4 */
+
+/***/ 4:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -498,7 +616,8 @@ var Tree = function () {
 exports.default = Tree;
 
 /***/ }),
-/* 5 */
+
+/***/ 5:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -604,10 +723,8 @@ var TreeNode = function (_Node) {
 exports.default = TreeNode;
 
 /***/ }),
-/* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */
+
+/***/ 9:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -672,113 +789,6 @@ var BSTNode = function (_TreeNode) {
 
 exports.default = BSTNode;
 
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _Tree2 = __webpack_require__(4);
-
-var _Tree3 = _interopRequireDefault(_Tree2);
-
-var _BSTNode = __webpack_require__(9);
-
-var _BSTNode2 = _interopRequireDefault(_BSTNode);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var BSTree = function (_Tree) {
-    _inherits(BSTree, _Tree);
-
-    function BSTree() {
-        _classCallCheck(this, BSTree);
-
-        return _possibleConstructorReturn(this, (BSTree.__proto__ || Object.getPrototypeOf(BSTree)).call(this, null));
-    }
-
-    _createClass(BSTree, [{
-        key: 'insert',
-        value: function insert(key) {
-            if (this.root === null) {
-                this.root = new _BSTNode2.default(key);
-                return;
-            }
-
-            return this.root.insert(key);
-        }
-    }]);
-
-    return BSTree;
-}(_Tree3.default);
-
-exports.default = BSTree;
-
-/***/ }),
-/* 11 */,
-/* 12 */,
-/* 13 */,
-/* 14 */,
-/* 15 */,
-/* 16 */,
-/* 17 */,
-/* 18 */,
-/* 19 */,
-/* 20 */,
-/* 21 */,
-/* 22 */,
-/* 23 */,
-/* 24 */,
-/* 25 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _BSTree = __webpack_require__(10);
-
-var _BSTree2 = _interopRequireDefault(_BSTree);
-
-var _TreeView = __webpack_require__(2);
-
-var _TreeView2 = _interopRequireDefault(_TreeView);
-
-var _OptionsBox = __webpack_require__(0);
-
-var _OptionsBox2 = _interopRequireDefault(_OptionsBox);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// Interface Bindings
-var optionsContainer = document.getElementById('options');
-var options = [{ type: 'button', className: 'button', onClick: addValue, label: 'Add Value' }];
-var optionsView = new _OptionsBox2.default(optionsContainer, options);
-
-var tree = new _BSTree2.default();
-for (var i = 0; i < 5; i++) {
-    tree.insert(Math.round(Math.random() * 100));
-}
-
-function addValue() {
-    tree.insert(Math.round(Math.random() * 100));
-    view.update();
-}
-
-console.log(tree);
-var view = new _TreeView2.default(document.getElementById('viz'), tree);
-
 /***/ })
-/******/ ]);
+
+/******/ });

@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 26);
+/******/ 	return __webpack_require__(__webpack_require__.s = 29);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -229,6 +229,23 @@ var SVGView = function () {
             }
 
             this.SVG.appendChild(circle);
+        }
+    }, {
+        key: 'appendLine',
+        value: function appendLine(x1, y1, x2, y2, attributes) {
+            var ns = 'http://www.w3.org/2000/svg';
+
+            var line = document.createElementNS(ns, 'line');
+            line.setAttribute('x1', x1);
+            line.setAttribute('x2', x2);
+            line.setAttribute('y1', y1);
+            line.setAttribute('y2', y2);
+
+            for (var k in attributes) {
+                line.setAttribute(k, attributes[k]);
+            }
+
+            this.SVG.appendChild(line);
         }
     }, {
         key: 'setOnClick',
@@ -734,7 +751,8 @@ exports.default = BSTree;
 /* 14 */,
 /* 15 */,
 /* 16 */,
-/* 17 */
+/* 17 */,
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -750,7 +768,7 @@ var _BSTree2 = __webpack_require__(10);
 
 var _BSTree3 = _interopRequireDefault(_BSTree2);
 
-var _AVLNode = __webpack_require__(21);
+var _AVLNode = __webpack_require__(23);
 
 var _AVLNode2 = _interopRequireDefault(_AVLNode);
 
@@ -789,10 +807,11 @@ var AVLTree = function (_BSTree) {
 exports.default = AVLTree;
 
 /***/ }),
-/* 18 */,
 /* 19 */,
 /* 20 */,
-/* 21 */
+/* 21 */,
+/* 22 */,
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -907,17 +926,18 @@ var AVLNode = function (_BSTNode) {
 exports.default = AVLNode;
 
 /***/ }),
-/* 22 */,
-/* 23 */,
 /* 24 */,
 /* 25 */,
-/* 26 */
+/* 26 */,
+/* 27 */,
+/* 28 */,
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _AVLTree = __webpack_require__(17);
+var _AVLTree = __webpack_require__(18);
 
 var _AVLTree2 = _interopRequireDefault(_AVLTree);
 

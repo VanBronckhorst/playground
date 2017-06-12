@@ -68,6 +68,22 @@ export default class SVGView{
         this.SVG.appendChild(circle);
     }
 
+    appendLine(x1, y1, x2, y2, attributes) {
+        const ns = 'http://www.w3.org/2000/svg';
+
+        let line = document.createElementNS(ns, 'line');
+        line.setAttribute('x1', x1);
+        line.setAttribute('x2', x2);
+        line.setAttribute('y1', y1);
+        line.setAttribute('y2', y2);
+        
+        for (let k in attributes) {
+            line.setAttribute(k, attributes[k]);
+        }
+
+        this.SVG.appendChild(line);
+    }
+
     setOnClick(fun) {
         let _pt = this.SVG.createSVGPoint();
 
