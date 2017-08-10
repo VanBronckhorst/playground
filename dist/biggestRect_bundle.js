@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 25);
+/******/ 	return __webpack_require__(__webpack_require__.s = 26);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -281,7 +281,7 @@ exports.default = SVGView;
 
 /***/ }),
 
-/***/ 16:
+/***/ 17:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -332,7 +332,7 @@ exports.default = Stack;
 
 /***/ }),
 
-/***/ 25:
+/***/ 26:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -346,7 +346,7 @@ var _MazeMatrixView = __webpack_require__(8);
 
 var _MazeMatrixView2 = _interopRequireDefault(_MazeMatrixView);
 
-var _Stack = __webpack_require__(16);
+var _Stack = __webpack_require__(17);
 
 var _Stack2 = _interopRequireDefault(_Stack);
 

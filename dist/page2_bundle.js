@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 29);
+/******/ 	return __webpack_require__(__webpack_require__.s = 31);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -752,7 +752,8 @@ exports.default = BSTree;
 /* 15 */,
 /* 16 */,
 /* 17 */,
-/* 18 */
+/* 18 */,
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -768,7 +769,7 @@ var _BSTree2 = __webpack_require__(10);
 
 var _BSTree3 = _interopRequireDefault(_BSTree2);
 
-var _AVLNode = __webpack_require__(23);
+var _AVLNode = __webpack_require__(24);
 
 var _AVLNode2 = _interopRequireDefault(_AVLNode);
 
@@ -807,11 +808,11 @@ var AVLTree = function (_BSTree) {
 exports.default = AVLTree;
 
 /***/ }),
-/* 19 */,
 /* 20 */,
 /* 21 */,
 /* 22 */,
-/* 23 */
+/* 23 */,
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -926,18 +927,19 @@ var AVLNode = function (_BSTNode) {
 exports.default = AVLNode;
 
 /***/ }),
-/* 24 */,
 /* 25 */,
 /* 26 */,
 /* 27 */,
 /* 28 */,
-/* 29 */
+/* 29 */,
+/* 30 */,
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _AVLTree = __webpack_require__(18);
+var _AVLTree = __webpack_require__(19);
 
 var _AVLTree2 = _interopRequireDefault(_AVLTree);
 

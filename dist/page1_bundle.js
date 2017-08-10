@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 28);
+/******/ 	return __webpack_require__(__webpack_require__.s = 30);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -483,46 +483,6 @@ exports.default = TreeView;
 
 /***/ }),
 
-/***/ 28:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _BSTree = __webpack_require__(10);
-
-var _BSTree2 = _interopRequireDefault(_BSTree);
-
-var _TreeView = __webpack_require__(2);
-
-var _TreeView2 = _interopRequireDefault(_TreeView);
-
-var _OptionsBox = __webpack_require__(0);
-
-var _OptionsBox2 = _interopRequireDefault(_OptionsBox);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// Interface Bindings
-var optionsContainer = document.getElementById('options');
-var options = [{ type: 'button', className: 'button', onClick: addValue, label: 'Add Value' }];
-var optionsView = new _OptionsBox2.default(optionsContainer, options);
-
-var tree = new _BSTree2.default();
-for (var i = 0; i < 5; i++) {
-    tree.insert(Math.round(Math.random() * 100));
-}
-
-function addValue() {
-    tree.insert(Math.round(Math.random() * 100));
-    view.update();
-}
-
-console.log(tree);
-var view = new _TreeView2.default(document.getElementById('viz'), tree);
-
-/***/ }),
-
 /***/ 3:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -566,6 +526,46 @@ var Node = function () {
 }();
 
 exports.default = Node;
+
+/***/ }),
+
+/***/ 30:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _BSTree = __webpack_require__(10);
+
+var _BSTree2 = _interopRequireDefault(_BSTree);
+
+var _TreeView = __webpack_require__(2);
+
+var _TreeView2 = _interopRequireDefault(_TreeView);
+
+var _OptionsBox = __webpack_require__(0);
+
+var _OptionsBox2 = _interopRequireDefault(_OptionsBox);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// Interface Bindings
+var optionsContainer = document.getElementById('options');
+var options = [{ type: 'button', className: 'button', onClick: addValue, label: 'Add Value' }];
+var optionsView = new _OptionsBox2.default(optionsContainer, options);
+
+var tree = new _BSTree2.default();
+for (var i = 0; i < 5; i++) {
+    tree.insert(Math.round(Math.random() * 100));
+}
+
+function addValue() {
+    tree.insert(Math.round(Math.random() * 100));
+    view.update();
+}
+
+console.log(tree);
+var view = new _TreeView2.default(document.getElementById('viz'), tree);
 
 /***/ }),
 

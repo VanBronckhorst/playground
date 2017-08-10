@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 24);
+/******/ 	return __webpack_require__(__webpack_require__.s = 25);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -563,7 +563,8 @@ exports.default = Node;
 /***/ }),
 /* 15 */,
 /* 16 */,
-/* 17 */
+/* 17 */,
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -575,11 +576,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Leaf = __webpack_require__(21);
+var _Leaf = __webpack_require__(22);
 
 var _Leaf2 = _interopRequireDefault(_Leaf);
 
-var _NonLeaf = __webpack_require__(22);
+var _NonLeaf = __webpack_require__(23);
 
 var _NonLeaf2 = _interopRequireDefault(_NonLeaf);
 
@@ -892,9 +893,9 @@ function leastIncreasing(nodes, toAdd) {
 exports.default = RTree;
 
 /***/ }),
-/* 18 */,
 /* 19 */,
-/* 20 */
+/* 20 */,
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1027,7 +1028,7 @@ var RTreeView = function (_SVGView) {
 exports.default = RTreeView;
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1073,7 +1074,7 @@ var Leaf = function (_RTreeNode) {
 exports.default = Leaf;
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1119,18 +1120,18 @@ var NonLeaf = function (_RTreeNode) {
 exports.default = NonLeaf;
 
 /***/ }),
-/* 23 */,
-/* 24 */
+/* 24 */,
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _RTree = __webpack_require__(17);
+var _RTree = __webpack_require__(18);
 
 var _RTree2 = _interopRequireDefault(_RTree);
 
-var _RTreeView = __webpack_require__(20);
+var _RTreeView = __webpack_require__(21);
 
 var _RTreeView2 = _interopRequireDefault(_RTreeView);
 
