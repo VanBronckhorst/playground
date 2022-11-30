@@ -5,7 +5,7 @@ import OptionsBox from '../views/OptionsBox';
 // Interface Bindings
 const optionsContainer = document.getElementById('options');
 const options = [
-    {type: 'button', className: 'button', onClick: addValue, label: 'Add Value'}
+    {type: 'button', className: 'pll-button', onClick: addValue, label: 'Add Value'}
 ];
 const optionsView = new OptionsBox(optionsContainer, options);
 

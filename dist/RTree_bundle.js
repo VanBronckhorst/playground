@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 25);
+/******/ 	return __webpack_require__(__webpack_require__.s = 33);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -331,7 +331,8 @@ function firstChild(i) {
 }
 
 /***/ }),
-/* 13 */
+/* 13 */,
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -458,7 +459,7 @@ function _distFromAxis(k, min, max) {
 exports.default = BoundingBox;
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -470,7 +471,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _BoundingBox = __webpack_require__(13);
+var _BoundingBox = __webpack_require__(14);
 
 var _BoundingBox2 = _interopRequireDefault(_BoundingBox);
 
@@ -561,10 +562,12 @@ var Node = function () {
 exports.default = Node;
 
 /***/ }),
-/* 15 */,
 /* 16 */,
 /* 17 */,
-/* 18 */
+/* 18 */,
+/* 19 */,
+/* 20 */,
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -576,15 +579,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Leaf = __webpack_require__(22);
+var _Leaf = __webpack_require__(30);
 
 var _Leaf2 = _interopRequireDefault(_Leaf);
 
-var _NonLeaf = __webpack_require__(23);
+var _NonLeaf = __webpack_require__(31);
 
 var _NonLeaf2 = _interopRequireDefault(_NonLeaf);
 
-var _BoundingBox = __webpack_require__(13);
+var _BoundingBox = __webpack_require__(14);
 
 var _BoundingBox2 = _interopRequireDefault(_BoundingBox);
 
@@ -893,9 +896,11 @@ function leastIncreasing(nodes, toAdd) {
 exports.default = RTree;
 
 /***/ }),
-/* 19 */,
-/* 20 */,
-/* 21 */
+/* 22 */,
+/* 23 */,
+/* 24 */,
+/* 25 */,
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1028,7 +1033,10 @@ var RTreeView = function (_SVGView) {
 exports.default = RTreeView;
 
 /***/ }),
-/* 22 */
+/* 27 */,
+/* 28 */,
+/* 29 */,
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1040,7 +1048,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _RTreeNode2 = __webpack_require__(14);
+var _RTreeNode2 = __webpack_require__(15);
 
 var _RTreeNode3 = _interopRequireDefault(_RTreeNode2);
 
@@ -1074,7 +1082,7 @@ var Leaf = function (_RTreeNode) {
 exports.default = Leaf;
 
 /***/ }),
-/* 23 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1086,7 +1094,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _RTreeNode2 = __webpack_require__(14);
+var _RTreeNode2 = __webpack_require__(15);
 
 var _RTreeNode3 = _interopRequireDefault(_RTreeNode2);
 
@@ -1120,18 +1128,18 @@ var NonLeaf = function (_RTreeNode) {
 exports.default = NonLeaf;
 
 /***/ }),
-/* 24 */,
-/* 25 */
+/* 32 */,
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _RTree = __webpack_require__(18);
+var _RTree = __webpack_require__(21);
 
 var _RTree2 = _interopRequireDefault(_RTree);
 
-var _RTreeView = __webpack_require__(21);
+var _RTreeView = __webpack_require__(26);
 
 var _RTreeView2 = _interopRequireDefault(_RTreeView);
 

@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 28);
+/******/ 	return __webpack_require__(__webpack_require__.s = 36);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -201,7 +201,7 @@ exports.default = SVGView;
 
 /***/ }),
 
-/***/ 15:
+/***/ 18:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -261,7 +261,7 @@ function orientation(p, q, r) {
 
 /***/ }),
 
-/***/ 20:
+/***/ 25:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -383,17 +383,17 @@ exports.default = PointSetView;
 
 /***/ }),
 
-/***/ 28:
+/***/ 36:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _PointSetView = __webpack_require__(20);
+var _PointSetView = __webpack_require__(25);
 
 var _PointSetView2 = _interopRequireDefault(_PointSetView);
 
-var _ConvexHull = __webpack_require__(15);
+var _ConvexHull = __webpack_require__(18);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

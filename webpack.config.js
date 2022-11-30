@@ -1,6 +1,6 @@
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var prefix = './pages/';
-var pages = ['page1', 'page2', 'page3', 'page4', 'biggestSquare', 'biggestRect', 'RTree', 'convexHull', 'fibonacci'];
+var pages = ['page1', 'page2', 'page3', 'page4', 'biggestSquare', 'biggestRect', 'RTree', 'convexHull', 'fibonacci', 'timeline', "phoneInput"];
 var entries = {};
 pages.forEach(p => {
 	entries[p] = prefix + p + '.js';

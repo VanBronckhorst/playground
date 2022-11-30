@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 30);
+/******/ 	return __webpack_require__(__webpack_require__.s = 38);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -529,7 +529,7 @@ exports.default = Node;
 
 /***/ }),
 
-/***/ 30:
+/***/ 38:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -551,7 +551,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 // Interface Bindings
 var optionsContainer = document.getElementById('options');
-var options = [{ type: 'button', className: 'button', onClick: addValue, label: 'Add Value' }];
+var options = [{ type: 'button', className: 'pll-button', onClick: addValue, label: 'Add Value' }];
 var optionsView = new _OptionsBox2.default(optionsContainer, options);
 
 var tree = new _BSTree2.default();
