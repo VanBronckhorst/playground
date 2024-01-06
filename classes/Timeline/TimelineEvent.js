@@ -69,6 +69,10 @@ export default class TimelineEvent {
             return res;
         }
 
+        if (date === "now"||date == "Now") {
+            return Date.today();
+        }
+
         throw new Error(`Failed to parse date ${date}`);
     }
 }

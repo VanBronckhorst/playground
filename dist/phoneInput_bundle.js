@@ -63,12 +63,12 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 42);
+/******/ 	return __webpack_require__(__webpack_require__.s = 37);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 24:
+/***/ 21:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80,7 +80,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _PhoneParser = __webpack_require__(29);
+var _PhoneParser = __webpack_require__(26);
 
 var _PhoneParser2 = _interopRequireDefault(_PhoneParser);
 
@@ -118,7 +118,7 @@ exports.default = PhoneInput;
 
 /***/ }),
 
-/***/ 29:
+/***/ 26:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -179,13 +179,13 @@ exports.default = PhoneParser;
 
 /***/ }),
 
-/***/ 42:
+/***/ 37:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _PhoneInput = __webpack_require__(24);
+var _PhoneInput = __webpack_require__(21);
 
 var _PhoneInput2 = _interopRequireDefault(_PhoneInput);
 

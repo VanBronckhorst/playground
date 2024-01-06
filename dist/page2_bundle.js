@@ -63,12 +63,11 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 39);
+/******/ 	return __webpack_require__(__webpack_require__.s = 34);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ 0:
+/******/ ([
+/* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -147,8 +146,7 @@ var OptionsBox = function () {
 exports.default = OptionsBox;
 
 /***/ }),
-
-/***/ 1:
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -280,64 +278,7 @@ var SVGView = function () {
 exports.default = SVGView;
 
 /***/ }),
-
-/***/ 10:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _Tree2 = __webpack_require__(4);
-
-var _Tree3 = _interopRequireDefault(_Tree2);
-
-var _BSTNode = __webpack_require__(9);
-
-var _BSTNode2 = _interopRequireDefault(_BSTNode);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var BSTree = function (_Tree) {
-    _inherits(BSTree, _Tree);
-
-    function BSTree() {
-        _classCallCheck(this, BSTree);
-
-        return _possibleConstructorReturn(this, (BSTree.__proto__ || Object.getPrototypeOf(BSTree)).call(this, null));
-    }
-
-    _createClass(BSTree, [{
-        key: 'insert',
-        value: function insert(key) {
-            if (this.root === null) {
-                this.root = new _BSTNode2.default(key);
-                return;
-            }
-
-            return this.root.insert(key);
-        }
-    }]);
-
-    return BSTree;
-}(_Tree3.default);
-
-exports.default = BSTree;
-
-/***/ }),
-
-/***/ 2:
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -482,64 +423,7 @@ var TreeView = function (_SVGView) {
 exports.default = TreeView;
 
 /***/ }),
-
-/***/ 22:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _BSTree2 = __webpack_require__(10);
-
-var _BSTree3 = _interopRequireDefault(_BSTree2);
-
-var _AVLNode = __webpack_require__(32);
-
-var _AVLNode2 = _interopRequireDefault(_AVLNode);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AVLTree = function (_BSTree) {
-    _inherits(AVLTree, _BSTree);
-
-    function AVLTree() {
-        _classCallCheck(this, AVLTree);
-
-        return _possibleConstructorReturn(this, (AVLTree.__proto__ || Object.getPrototypeOf(AVLTree)).call(this));
-    }
-
-    _createClass(AVLTree, [{
-        key: 'insert',
-        value: function insert(key) {
-            if (this.root === null) {
-                this.root = new _AVLNode2.default(key);
-                return;
-            }
-
-            return this.root.insert(key);
-        }
-    }]);
-
-    return AVLTree;
-}(_BSTree3.default);
-
-exports.default = AVLTree;
-
-/***/ }),
-
-/***/ 3:
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -584,8 +468,354 @@ var Node = function () {
 exports.default = Node;
 
 /***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
 
-/***/ 32:
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ROOT = Symbol();
+
+var Tree = function () {
+    function Tree(root) {
+        _classCallCheck(this, Tree);
+
+        this[ROOT] = root;
+    }
+
+    _createClass(Tree, [{
+        key: "root",
+        get: function get() {
+            return this[ROOT];
+        },
+        set: function set(node) {
+            this[ROOT] = node;
+        }
+    }, {
+        key: "height",
+        get: function get() {
+            if (this.root !== null) {
+                return this.root.height;
+            }
+            return 0;
+        }
+    }]);
+
+    return Tree;
+}();
+
+exports.default = Tree;
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Node2 = __webpack_require__(3);
+
+var _Node3 = _interopRequireDefault(_Node2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var LEFT = Symbol();
+var RIGHT = Symbol();
+
+var TreeNode = function (_Node) {
+    _inherits(TreeNode, _Node);
+
+    function TreeNode(key) {
+        _classCallCheck(this, TreeNode);
+
+        var _this = _possibleConstructorReturn(this, (TreeNode.__proto__ || Object.getPrototypeOf(TreeNode)).call(this, key));
+
+        _this[LEFT] = null;
+        _this[RIGHT] = null;
+        return _this;
+    }
+
+    _createClass(TreeNode, [{
+        key: 'rotateRight',
+        value: function rotateRight() {
+            if (this[LEFT] === null) {
+                throw new Error('Cannot perform right rotation because there is no left child');
+            }
+
+            var oldLeftData = this.left.data;
+            var oldThisData = this.data;
+            var oldLeft = this[LEFT];
+            this.data = oldLeftData;
+            oldLeft.data = oldThisData;
+            this[LEFT] = oldLeft.left;
+            oldLeft.left = oldLeft.right;
+            oldLeft.right = this.right;
+            this.right = oldLeft;
+        }
+    }, {
+        key: 'rotateLeft',
+        value: function rotateLeft() {
+            if (this[RIGHT] === null) {
+                throw new Error('Cannot perform left rotation because there is no right child');
+            }
+
+            var oldRightData = this.right.data;
+            var oldThisData = this.data;
+            var oldRight = this.right;
+            this.data = oldRightData;
+            oldRight.data = oldThisData;
+            this.right = oldRight.right;
+            oldRight.right = oldRight.left;
+            oldRight.left = this.left;
+            this.left = oldRight;
+        }
+    }, {
+        key: 'left',
+        get: function get() {
+            return this[LEFT];
+        },
+        set: function set(node) {
+            this[LEFT] = node;
+        }
+    }, {
+        key: 'right',
+        get: function get() {
+            return this[RIGHT];
+        },
+        set: function set(node) {
+            this[RIGHT] = node;
+        }
+    }, {
+        key: 'height',
+        get: function get() {
+            var leftHeight = this.left === null ? -1 : this.left.height;
+            var rightHeight = this.right === null ? -1 : this.right.height;
+
+            return Math.max(leftHeight, rightHeight) + 1;
+        }
+    }]);
+
+    return TreeNode;
+}(_Node3.default);
+
+exports.default = TreeNode;
+
+/***/ }),
+/* 6 */,
+/* 7 */,
+/* 8 */,
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _TreeNode2 = __webpack_require__(5);
+
+var _TreeNode3 = _interopRequireDefault(_TreeNode2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var BSTNode = function (_TreeNode) {
+    _inherits(BSTNode, _TreeNode);
+
+    function BSTNode(key) {
+        _classCallCheck(this, BSTNode);
+
+        return _possibleConstructorReturn(this, (BSTNode.__proto__ || Object.getPrototypeOf(BSTNode)).call(this, key));
+    }
+
+    _createClass(BSTNode, [{
+        key: 'insert',
+        value: function insert(key) {
+            if (key === this.key) {
+                return;
+            }
+
+            if (key > this.key) {
+                if (this.right !== null) {
+                    this.right.insert(key);
+                } else {
+                    this.right = new BSTNode(key);
+                    return this.right;
+                }
+            }
+
+            if (key < this.key) {
+                if (this.left !== null) {
+                    this.left.insert(key);
+                } else {
+                    this.left = new BSTNode(key);
+                    return this.left;
+                }
+            }
+        }
+    }]);
+
+    return BSTNode;
+}(_TreeNode3.default);
+
+exports.default = BSTNode;
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Tree2 = __webpack_require__(4);
+
+var _Tree3 = _interopRequireDefault(_Tree2);
+
+var _BSTNode = __webpack_require__(9);
+
+var _BSTNode2 = _interopRequireDefault(_BSTNode);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var BSTree = function (_Tree) {
+    _inherits(BSTree, _Tree);
+
+    function BSTree() {
+        _classCallCheck(this, BSTree);
+
+        return _possibleConstructorReturn(this, (BSTree.__proto__ || Object.getPrototypeOf(BSTree)).call(this, null));
+    }
+
+    _createClass(BSTree, [{
+        key: 'insert',
+        value: function insert(key) {
+            if (this.root === null) {
+                this.root = new _BSTNode2.default(key);
+                return;
+            }
+
+            return this.root.insert(key);
+        }
+    }]);
+
+    return BSTree;
+}(_Tree3.default);
+
+exports.default = BSTree;
+
+/***/ }),
+/* 11 */,
+/* 12 */,
+/* 13 */,
+/* 14 */,
+/* 15 */,
+/* 16 */,
+/* 17 */,
+/* 18 */,
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _BSTree2 = __webpack_require__(10);
+
+var _BSTree3 = _interopRequireDefault(_BSTree2);
+
+var _AVLNode = __webpack_require__(27);
+
+var _AVLNode2 = _interopRequireDefault(_AVLNode);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var AVLTree = function (_BSTree) {
+    _inherits(AVLTree, _BSTree);
+
+    function AVLTree() {
+        _classCallCheck(this, AVLTree);
+
+        return _possibleConstructorReturn(this, (AVLTree.__proto__ || Object.getPrototypeOf(AVLTree)).call(this));
+    }
+
+    _createClass(AVLTree, [{
+        key: 'insert',
+        value: function insert(key) {
+            if (this.root === null) {
+                this.root = new _AVLNode2.default(key);
+                return;
+            }
+
+            return this.root.insert(key);
+        }
+    }]);
+
+    return AVLTree;
+}(_BSTree3.default);
+
+exports.default = AVLTree;
+
+/***/ }),
+/* 20 */,
+/* 21 */,
+/* 22 */,
+/* 23 */,
+/* 24 */,
+/* 25 */,
+/* 26 */,
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -700,14 +930,19 @@ var AVLNode = function (_BSTNode) {
 exports.default = AVLNode;
 
 /***/ }),
-
-/***/ 39:
+/* 28 */,
+/* 29 */,
+/* 30 */,
+/* 31 */,
+/* 32 */,
+/* 33 */,
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _AVLTree = __webpack_require__(22);
+var _AVLTree = __webpack_require__(19);
 
 var _AVLTree2 = _interopRequireDefault(_AVLTree);
 
@@ -739,228 +974,5 @@ function addValue() {
     view.update();
 }
 
-/***/ }),
-
-/***/ 4:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var ROOT = Symbol();
-
-var Tree = function () {
-    function Tree(root) {
-        _classCallCheck(this, Tree);
-
-        this[ROOT] = root;
-    }
-
-    _createClass(Tree, [{
-        key: "root",
-        get: function get() {
-            return this[ROOT];
-        },
-        set: function set(node) {
-            this[ROOT] = node;
-        }
-    }, {
-        key: "height",
-        get: function get() {
-            if (this.root !== null) {
-                return this.root.height;
-            }
-            return 0;
-        }
-    }]);
-
-    return Tree;
-}();
-
-exports.default = Tree;
-
-/***/ }),
-
-/***/ 5:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _Node2 = __webpack_require__(3);
-
-var _Node3 = _interopRequireDefault(_Node2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LEFT = Symbol();
-var RIGHT = Symbol();
-
-var TreeNode = function (_Node) {
-    _inherits(TreeNode, _Node);
-
-    function TreeNode(key) {
-        _classCallCheck(this, TreeNode);
-
-        var _this = _possibleConstructorReturn(this, (TreeNode.__proto__ || Object.getPrototypeOf(TreeNode)).call(this, key));
-
-        _this[LEFT] = null;
-        _this[RIGHT] = null;
-        return _this;
-    }
-
-    _createClass(TreeNode, [{
-        key: 'rotateRight',
-        value: function rotateRight() {
-            if (this[LEFT] === null) {
-                throw new Error('Cannot perform right rotation because there is no left child');
-            }
-
-            var oldLeftData = this.left.data;
-            var oldThisData = this.data;
-            var oldLeft = this[LEFT];
-            this.data = oldLeftData;
-            oldLeft.data = oldThisData;
-            this[LEFT] = oldLeft.left;
-            oldLeft.left = oldLeft.right;
-            oldLeft.right = this.right;
-            this.right = oldLeft;
-        }
-    }, {
-        key: 'rotateLeft',
-        value: function rotateLeft() {
-            if (this[RIGHT] === null) {
-                throw new Error('Cannot perform left rotation because there is no right child');
-            }
-
-            var oldRightData = this.right.data;
-            var oldThisData = this.data;
-            var oldRight = this.right;
-            this.data = oldRightData;
-            oldRight.data = oldThisData;
-            this.right = oldRight.right;
-            oldRight.right = oldRight.left;
-            oldRight.left = this.left;
-            this.left = oldRight;
-        }
-    }, {
-        key: 'left',
-        get: function get() {
-            return this[LEFT];
-        },
-        set: function set(node) {
-            this[LEFT] = node;
-        }
-    }, {
-        key: 'right',
-        get: function get() {
-            return this[RIGHT];
-        },
-        set: function set(node) {
-            this[RIGHT] = node;
-        }
-    }, {
-        key: 'height',
-        get: function get() {
-            var leftHeight = this.left === null ? -1 : this.left.height;
-            var rightHeight = this.right === null ? -1 : this.right.height;
-
-            return Math.max(leftHeight, rightHeight) + 1;
-        }
-    }]);
-
-    return TreeNode;
-}(_Node3.default);
-
-exports.default = TreeNode;
-
-/***/ }),
-
-/***/ 9:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _TreeNode2 = __webpack_require__(5);
-
-var _TreeNode3 = _interopRequireDefault(_TreeNode2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var BSTNode = function (_TreeNode) {
-    _inherits(BSTNode, _TreeNode);
-
-    function BSTNode(key) {
-        _classCallCheck(this, BSTNode);
-
-        return _possibleConstructorReturn(this, (BSTNode.__proto__ || Object.getPrototypeOf(BSTNode)).call(this, key));
-    }
-
-    _createClass(BSTNode, [{
-        key: 'insert',
-        value: function insert(key) {
-            if (key === this.key) {
-                return;
-            }
-
-            if (key > this.key) {
-                if (this.right !== null) {
-                    this.right.insert(key);
-                } else {
-                    this.right = new BSTNode(key);
-                    return this.right;
-                }
-            }
-
-            if (key < this.key) {
-                if (this.left !== null) {
-                    this.left.insert(key);
-                } else {
-                    this.left = new BSTNode(key);
-                    return this.left;
-                }
-            }
-        }
-    }]);
-
-    return BSTNode;
-}(_TreeNode3.default);
-
-exports.default = BSTNode;
-
 /***/ })
-
-/******/ });
+/******/ ]);

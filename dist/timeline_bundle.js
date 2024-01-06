@@ -63,12 +63,12 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 43);
+/******/ 	return __webpack_require__(__webpack_require__.s = 38);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 13:
+/***/ 12:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80,7 +80,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _TimelineEvent = __webpack_require__(16);
+var _TimelineEvent = __webpack_require__(13);
 
 var _TimelineEvent2 = _interopRequireDefault(_TimelineEvent);
 
@@ -199,7 +199,7 @@ exports.default = Timeline;
 
 /***/ }),
 
-/***/ 16:
+/***/ 13:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -213,7 +213,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-__webpack_require__(17);
+__webpack_require__(14);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -299,6 +299,10 @@ var TimelineEvent = function () {
                 return res;
             }
 
+            if (date === "now" || date == "Now") {
+                return Date.today();
+            }
+
             throw new Error("Failed to parse date " + date);
         }
     }]);
@@ -310,7 +314,7 @@ exports.default = TimelineEvent;
 
 /***/ }),
 
-/***/ 17:
+/***/ 14:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1296,7 +1300,7 @@ Date.CultureInfo = { name: "en-US", englishName: "English (United States)", nati
 
 /***/ }),
 
-/***/ 23:
+/***/ 20:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1348,7 +1352,7 @@ exports.default = CollapsibleTextView;
 
 /***/ }),
 
-/***/ 27:
+/***/ 24:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1360,23 +1364,23 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Timeline = __webpack_require__(13);
+var _Timeline = __webpack_require__(12);
 
 var _Timeline2 = _interopRequireDefault(_Timeline);
 
-var _TimelineEvent = __webpack_require__(16);
+var _TimelineEvent = __webpack_require__(13);
 
 var _TimelineEvent2 = _interopRequireDefault(_TimelineEvent);
 
-var _YearBox = __webpack_require__(45);
+var _YearBox = __webpack_require__(40);
 
 var _YearBox2 = _interopRequireDefault(_YearBox);
 
-var _EventRow = __webpack_require__(44);
+var _EventRow = __webpack_require__(39);
 
 var _EventRow2 = _interopRequireDefault(_EventRow);
 
-__webpack_require__(17);
+__webpack_require__(14);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1491,7 +1495,7 @@ exports.default = TimelineView;
 
 /***/ }),
 
-/***/ 28:
+/***/ 25:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4029,25 +4033,25 @@ var index = {
 
 /***/ }),
 
-/***/ 43:
+/***/ 38:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _Timeline = __webpack_require__(13);
+var _Timeline = __webpack_require__(12);
 
 var _Timeline2 = _interopRequireDefault(_Timeline);
 
-var _TimelineView = __webpack_require__(27);
+var _TimelineView = __webpack_require__(24);
 
 var _TimelineView2 = _interopRequireDefault(_TimelineView);
 
-var _CollapsibleTextView = __webpack_require__(23);
+var _CollapsibleTextView = __webpack_require__(20);
 
 var _CollapsibleTextView2 = _interopRequireDefault(_CollapsibleTextView);
 
-var _dat = __webpack_require__(28);
+var _dat = __webpack_require__(25);
 
 var dat = _interopRequireWildcard(_dat);
 
@@ -4095,7 +4099,7 @@ var v = new _TimelineView2.default(document.getElementById("viz"), timeline, opt
 
 /***/ }),
 
-/***/ 44:
+/***/ 39:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4187,7 +4191,7 @@ exports.default = EventRow;
 
 /***/ }),
 
-/***/ 45:
+/***/ 40:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

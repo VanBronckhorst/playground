@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 41);
+/******/ 	return __webpack_require__(__webpack_require__.s = 36);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -565,6 +565,47 @@ exports.default = Node;
 
 /***/ }),
 
+/***/ 36:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _CartesianTree = __webpack_require__(7);
+
+var _CartesianTree2 = _interopRequireDefault(_CartesianTree);
+
+var _TreeView = __webpack_require__(2);
+
+var _TreeView2 = _interopRequireDefault(_TreeView);
+
+var _OptionsBox = __webpack_require__(0);
+
+var _OptionsBox2 = _interopRequireDefault(_OptionsBox);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// Interface Bindings
+var optionsContainer = document.getElementById('options');
+var options = [{ type: 'button', className: 'pll-button', onClick: addValue, label: 'Add Value' }];
+var optionsView = new _OptionsBox2.default(optionsContainer, options);
+
+var tree = new _CartesianTree2.default();
+for (var i = 0; i < 30; i++) {
+    var val = Math.round(Math.random() * 100);
+    tree.insert(val, Math.round(Math.random() * 1000));
+}
+console.log(tree);
+var view = new _TreeView2.default(document.getElementById('viz'), tree);
+
+function addValue() {
+    var val = Math.round(Math.random() * 100);
+    tree.insert(val, Math.round(Math.random() * 1000));
+    view.update();
+}
+
+/***/ }),
+
 /***/ 4:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -610,47 +651,6 @@ var Tree = function () {
 }();
 
 exports.default = Tree;
-
-/***/ }),
-
-/***/ 41:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _CartesianTree = __webpack_require__(7);
-
-var _CartesianTree2 = _interopRequireDefault(_CartesianTree);
-
-var _TreeView = __webpack_require__(2);
-
-var _TreeView2 = _interopRequireDefault(_TreeView);
-
-var _OptionsBox = __webpack_require__(0);
-
-var _OptionsBox2 = _interopRequireDefault(_OptionsBox);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// Interface Bindings
-var optionsContainer = document.getElementById('options');
-var options = [{ type: 'button', className: 'pll-button', onClick: addValue, label: 'Add Value' }];
-var optionsView = new _OptionsBox2.default(optionsContainer, options);
-
-var tree = new _CartesianTree2.default();
-for (var i = 0; i < 30; i++) {
-    var val = Math.round(Math.random() * 100);
-    tree.insert(val, Math.round(Math.random() * 1000));
-}
-console.log(tree);
-var view = new _TreeView2.default(document.getElementById('viz'), tree);
-
-function addValue() {
-    var val = Math.round(Math.random() * 100);
-    tree.insert(val, Math.round(Math.random() * 1000));
-    view.update();
-}
 
 /***/ }),
 
